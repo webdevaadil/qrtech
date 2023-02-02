@@ -1,0 +1,37 @@
+.container{
+    margin: 0 auto;
+}
+.header{
+display: flex;
+background-color: #d4e5f7;
+padding: 30px 0px;
+justify-content: space-evenly;
+height: 65vh;
+}
+.baneerleft{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center ;
+}
+.baneerleft h2{
+    font-weight: 500;
+    color: #111111;
+    font-family: 'Open sans', sans-serif;
+    line-height: 40px;
+    font-size: 40px;
+}
+.baneerleft b{
+    font-weight: 700;
+}
+.baneerleft button{
+    background-color: #2e4256;
+    color:white
+}
+.baneerright{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
