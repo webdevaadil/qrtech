@@ -12,7 +12,7 @@ function Login() {
           <h1>Login</h1>
           <form
             method="POST"
-            action="http://3.109.219.236/login"
+            action=""
             id="loginForm"
           >
             <div className={styles.loginhead}>
@@ -45,10 +45,10 @@ function Login() {
                   <p>
                     Don't have an account ?{" "}
                     <strong>
-                      <a href="http://3.109.219.236/register">Register Here</a>
+                      <a href="">Register Here</a>
                     </strong>
                     <br />
-                    <a href="http://3.109.219.236/forget-password">
+                    <a href="">
                       Forget password ?
                     </a>
                   </p>
@@ -64,9 +64,7 @@ function Login() {
                 </div>
               </div>
               <div className={styles.loginright}>
-                <div>
                   <img src={Img} alt="Login" />
-                </div>
               </div>
             </div>
           </form>

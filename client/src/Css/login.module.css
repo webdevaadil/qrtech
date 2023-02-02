@@ -2,7 +2,7 @@
   font-size: 18px;
   font-family: "Open Sans";
   font-weight: 700;
-  margin-left: 112px;
+  margin-left: 3%;
   margin-top: 20px;
   margin-bottom: 30px;
 }
@@ -11,11 +11,12 @@
   color: #6d6a6a;
 }
 .loginhead {
-  display: flex;
-  justify-content: space-around;
+    display: flex;
+    justify-content: space-between;
 }
 .loginright {
   width: 45%;
+  text-align: left;
 }
 .logincontent h3{
     font-size: 13px;

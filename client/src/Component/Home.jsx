@@ -3,6 +3,7 @@ import { Header } from "./Header";
 import styles from "../Css/home.module.css";
 import homeinmg from "../Img/secure.png";
 import { Footer } from "./Footer";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   return (
@@ -16,7 +17,10 @@ export const Home = () => {
               <br />
               <b style={{ fontWeight: "bolder" }}>Access to all your files</b>
             </h2>
-            <button className="btn btn ">sign up For Free</button>
+            <button className="btn btn ">
+              <Link style={{textDecoration:"none" ,color:"white"}}to='/register'>
+              sign up For Free</Link>
+            </button>
           </div>
           <div className={styles.baneerright}>
             <img src={homeinmg} alt="" />
