@@ -1,56 +1,105 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Header } from "./Header";
 import styles from "../Css/login.module.css";
 import Img from "../Img/login.png";
 import { Footer } from "./Footer";
+import axios from "axios";
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 function Login() {
+  const navigate = useNavigate();
+  const [first, setfirst] = useState({ email: "", password: "" });
+  const baseurl = "http://localhost:5000";
+
+  const token = JSON.parse(localStorage.getItem("token"));
+useEffect(() => {
+  if (token) {
+    navigate('/main')
+    
+  }
+}, []);
+
+
+  const handle = async (e) => {
+
+    e.preventDefault();
+    console.log(first);
+   await axios.post(`${baseurl}/api/auth/login`, {
+      email: first.email,
+      password: first.password,
+    }).then((res)=>{
+      console.log(res.data.token);
+      localStorage.setItem("token",JSON.stringify(res.data.token))
+         navigate("/main");
+
+    }).catch((e)=>{
+     alert(e.response.data);
+    })
+    // try {
+    // } catch (error) {
+    //   alert();
+    // }
+
+    // if (data.data.success===true) {
+    //   navigate("/home")
+
+    // }
+    // if(data.response.status !== 200){
+
+    // }
+    // .then(navigate("/home"))
+  };
   return (
     <>
       <Header />
       <div className={styles.registersection}>
         <div className="container">
           <h1>Login</h1>
-          <form
-            method="POST"
-            action=""
-            id="loginForm"
-          >
+          <form onSubmit={handle}>
             <div className={styles.loginhead}>
               <div className={styles.loginright}>
                 <div className="form-group">
                   <input
-                  className="form-control"
-                    type="email"
+                    className="form-control"
+                    type="text"
                     id="email"
                     name="email"
                     placeholder="Email Address"
-                    value=""
+                    value={first.email}
+                    onChange={(e) => {
+                      setfirst({ ...first, [e.target.name]: e.target.value });
+                    }}
                   />
                 </div>
 
                 <div className="form-group">
                   <input
-                   className="form-control"
+                    className="form-control"
                     type="password"
                     id="password"
                     name="password"
                     placeholder="Password"
+                    value={first.password}
+                    onChange={(e) => {
+                      setfirst({ ...first, [e.target.name]: e.target.value });
+                    }}
                   />
                 </div>
 
                 <div className={styles.accbutton}>
-                  <button type="submit" className={`btn btn-primary ${styles.loginbtn}`} id="btn-createaccount" form="loginForm">
-                    Login
-                  </button>
+                  <input
+                    type="submit"
+                    className={`btn btn-primary ${styles.loginbtn}`}
+                    id="btn-createaccount"
+                    value="Login"
+                  />
+
                   <p>
                     Don't have an account ?{" "}
                     <strong>
                       <a href="">Register Here</a>
                     </strong>
                     <br />
-                    <a href="">
-                      Forget password ?
-                    </a>
+                    <a href="">Forget password ?</a>
                   </p>
                 </div>
                 <div className={styles.logincontent}>
@@ -64,13 +113,13 @@ function Login() {
                 </div>
               </div>
               <div className={styles.loginright}>
-                  <img src={Img} alt="Login" />
+                <img src={Img} alt="Login" />
               </div>
             </div>
           </form>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

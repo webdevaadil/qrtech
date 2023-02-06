@@ -1,0 +1,39 @@
+.simplebarcontent{
+    direction: inherit;
+    position: absolute;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 22vw!important;
+    height: auto!important;
+    z-index: 0;
+    background: #2e4256;
+}
+.metismenu{
+    padding: 0;
+}
+.metismenu li{
+    list-style: none;
+}
+.metismenu li a{
+    color: #cedce4;
+    display: block;
+    padding: 10px 30px;
+    font-size: .9375rem;
+    position: relative;
+    -webkit-transition: all .4s;
+    transition: all .4s;
+    text-decoration: none;
+}
+.metismenu li a i{
+    display: inline-block;
+    line-height: 1.0625rem;
+    margin: 0 10px 0 0;
+    font-size: 1.1rem;
+    vertical-align: middle;
+    width: 20px;
+}

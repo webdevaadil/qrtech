@@ -2,6 +2,9 @@ const catchAsyncerror = require("../middleware/catchAsyncerror");
 const Users = require("../models/User.js");
 const Enquires = require("../models/Enquires.js");
 const emailValidator = require("deep-email-validator");
+const path = require("path");
+const jwt = require("jsonwebtoken");
+
 async function isEmailValid(email) {
   return emailValidator.validate(email);
 }
@@ -40,7 +43,7 @@ exports.register = catchAsyncerror(async (req, res, next) => {
 
 exports.login = catchAsyncerror(async (req, res, next) => {
   const { email, password } = req.body;
-
+  console.log(req.body);
   try {
     if (!email || !password) {
       return res.status(400).json("plese fill all input ");
@@ -52,38 +55,120 @@ exports.login = catchAsyncerror(async (req, res, next) => {
     }
     const isMatch = await user.matchPassword(password);
     if (!isMatch) {
-      return res.status(500).json("password is not valid please register");
+      return res.status(500).json("password is not valid ");
     }
 
-    sendToken(user, 200, res);
+    sendToken(user, 200, res, req);
   } catch (error) {
     throw new Error(error);
   }
 });
 
-exports.downloadfile= catchAsyncerror(async(req,res,next)=>{
+exports.downloadfile = catchAsyncerror(async (req, res, next) => {
   console.log(req.params);
-  const formData = await Enquires.findOne();
-
+  const formData = await Enquires.findById("63de5f13f7a59c3e94cb9fb9");
+  console.log(formData);
   // Check if the form data exists
   if (!formData) {
-    return res.status(404).json({ message: 'Form data not found' });
+    return res.status(404).json({ message: "Form data not found" });
   }
 
   // Find the file in the form data
-  const file = formData.files.find(f => f.originalname === req.body.files);
+  const file = formData.files.find((f) => f.originalname === req.body.files);
 
   // Check if the file exists
   if (!file) {
-    return res.status(404).json({ message: 'File not found' });
+    return res.status(404).json({ message: "File not found" });
   }
-
   // Serve the file
-  res.download(path.join(__dirname, 'uploads', file.path), file.originalname);
-})
-const sendToken = (user, statusCode, res) => {
+  res.download(path.join(__dirname, "..", file.path), file.originalname);
+});
+exports.updateFoam = catchAsyncerror(async (req, res, next) => {
+  const {
+    customer,
+    Product_type,
+    PTI_No,
+    SONo_JobNo,
+    Panel_name,
+    Constructiontype,
+    Rating,
+    DispatchDate,
+  } = req.body;
+  const newUserData = {
+    customer,
+    Product_type,
+    PTI_No,
+    SONo_JobNo,
+    Panel_name,
+    Constructiontype,
+    Rating,
+    DispatchDate,
+    files: req.files.map((file) => ({
+      originalname: file.originalname,
+      path: file.path,
+    })),
+  };
+
+  await Enquires.findByIdAndUpdate(req.body._id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+  res.status(200).json({
+    success: "updated",
+  });
+});
+exports.edit = catchAsyncerror(async (req, res) => {
+  let uid = req.body.id;
+  // console.log(req);
+  let data = await Enquires.findById({ _id: uid });
+  // console.log(data);
+  return res.json(data);
+});
+exports.deletedata = catchAsyncerror(async (req, res) => {
+  let uid = req.body.id;
+  // console.log(req);
+  let data = await Enquires.findByIdAndDelete({ _id: uid });
+  // console.log(data);
+  return res.json(data);
+});
+exports.isAuthuser = catchAsyncerror(async (req, res, next) => {
+  const { token } = req.body;
+  console.log(req.body);
+  console.log(token);
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "plese login to access this resource" });
+  } else {
+    console.log("dd");
+    const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = await Users.findById(decodedData.id);
+    console.log(req.user);
+    next();
+  }
+});
+exports.dashboard = catchAsyncerror(async (req, res, next) => {
+
+  if (!req.user) {
+    return res
+      .status(401)
+      .json({ message: "plese login to access this resource" });
+  }
+console.log(req.user.id,"555");
+  const user = await Users.findById(req.user.id);
+
+
+
+  res.status(200).json({
+    sucess: true,
+    user,
+  });
+});
+const sendToken = async (user, statusCode, res) => {
   const token = user.getSignedToken();
   // option for cookie
+  console.log(token);
   const options = {
     expire: new Date(Date.now + 24 * 60 * 60 * 1000),
     httpOnly: true,
@@ -93,4 +178,6 @@ const sendToken = (user, statusCode, res) => {
     user,
     token,
   });
+  
+
 };
