@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Header } from "./Header";
 import styles from "../Css/home.module.css";
 import homeinmg from "../Img/secure.png";
 import { Footer } from "./Footer";
 import { Link } from "react-router-dom";
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 
 export const Home = () => {
+  const navigate = useNavigate();
+
+  const token = JSON.parse(localStorage.getItem("token"));
+  useEffect(() => {
+    if (token) {
+      navigate('/main')
+      
+    }
+  }, []);
   return (
     <>
       <Header />

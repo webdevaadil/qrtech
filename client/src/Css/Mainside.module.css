@@ -1,0 +1,89 @@
+.leftsidemenu {
+  background: #3b5168;
+  width: 260px;
+  z-index: 10;
+  bottom: 0;
+  position: fixed;
+  transition: all 0.2s ease-out;
+  top: 0;
+  padding-top: 70px;
+  box-shadow: 0 0 35px 0 rgb(154 161 171 / 15%);
+}
+.logo {
+  display: block;
+  line-height: 70px;
+  width: 260px;
+  position: fixed;
+  top: 0;
+}
+
+div#left-side-menu-container {
+  position: relative;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -ms-flex-line-pack: start;
+  align-content: flex-start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+.simplebarmask{
+        position: absolute;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    top: 69px;
+    bottom: 0;
+    right: 0;
+    width: auto!important;
+    height: auto!important;
+    z-index: 0;
+    background: #2e4256;
+}
+.simplebarcontent{
+    direction: inherit;
+    position: absolute;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 22vw!important;
+    height: auto!important;
+    z-index: 0;
+    background: #2e4256;
+}
+.metismenu{
+    padding: 0;
+}
+.metismenu li{
+    list-style: none;
+}
+.metismenu li a{
+    color: #cedce4;
+    display: block;
+    padding: 10px 30px;
+    font-size: .9375rem;
+    position: relative;
+    -webkit-transition: all .4s;
+    transition: all .4s;
+    text-decoration: none;
+}
+.metismenu li a i{
+    display: inline-block;
+    line-height: 1.0625rem;
+    margin: 0 10px 0 0;
+    font-size: 1.1rem;
+    vertical-align: middle;
+    width: 20px;
+}

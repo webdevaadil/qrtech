@@ -1,0 +1,22 @@
+.cardbody{
+    padding: 1.5rem;
+    width: 80%;
+    float: right;
+    top: 50px;
+    position: relative;
+}
+.seachfeilds{
+    display: flex;
+    justify-content: space-evenly;
+}
+.table{
+    width: 100%;
+    margin-bottom: 1.5rem;
+    color: #6c757d;
+}
+.theaddark tr th {
+    background-color: #2e4256;
+    border-color: #2e4256;
+    color: #f1f1f1;
+}
+

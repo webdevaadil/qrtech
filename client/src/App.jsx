@@ -2,8 +2,10 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Home } from "./Component/Home";
 import Login from "./Component/Login";
 import { Register } from "./Component/Register";
-import { Main} from "./Component/Main";
-import React, {useState } from "react";
+import { Main } from "./Component/Main";
+import React, { useState } from "react";
+import { Viewlist } from "./Component/Viewlist";
+import { Dashboard } from "./Component/Dashboard";
 
 function App() {
   const [auth, setAuth] = useState();
@@ -12,7 +14,6 @@ function App() {
   const token = JSON.parse(localStorage.getItem("token"));
   console.log(token);
 
-
   return (
     <div className="App">
       <BrowserRouter>
@@ -20,9 +21,18 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/main" element={<Protectedroute><Main/></Protectedroute>} />
+          <Route
+            path="/main"
+            element={
+              <Protectedroute>
+                <Main />
+              </Protectedroute>
+            }
+          >
+            <Route path="" element={< Dashboard />} />
+            <Route path="viewlist" element={<Viewlist/>}></Route>
+          </Route>
         </Routes>
-        
       </BrowserRouter>
     </div>
   );
