@@ -1,51 +1,51 @@
 .registersection h1 {
-  font-size: 18px;
-  font-family: "Open Sans";
-  font-weight: 700;
-  margin-left: 3%;
-  margin-top: 20px;
-  margin-bottom: 30px;
-}
-.registersection .form-control {
-  font-size: 12px;
-  color: #6d6a6a;
-}
-.loginhead {
-    display: flex;
-    justify-content: space-between;
-}
-.loginright {
-  width: 45%;
-  text-align: left;
-}
-.logincontent h3{
-    font-size: 13px;
-    line-height: 30px;
-    margin-top: 40px;
-    color: #4c4c4c;
-    text-align: center;
-}
-.registersection input {
+    font-size: 18px;
+    font-family: "Open Sans";
+    font-weight: 700;
+    margin-left: 3%;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  .registersection .form-control {
     font-size: 12px;
-    color: #6D6A6A;
-    margin-bottom: 15px;
-}
-.loginbtn{
-    background: #2e4256;
-    padding: 8px 30px;
-}
-.loginbtn:hover {
-    background: #213242;
-    border-color: #213242;
-}
-.accbutton p{
-    margin: 0 0 10px;
-    font-size: 11px;
-    margin-top: 13px;
-    text-align: center;
-}
-.accbutton {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+    color: #6d6a6a;
+  }
+  .loginhead {
+      display: flex;
+      justify-content: space-between;
+  }
+  .loginright {
+    width: 45%;
+    text-align: left;
+  }
+  .logincontent h3{
+      font-size: 13px;
+      line-height: 30px;
+      margin-top: 40px;
+      color: #4c4c4c;
+      text-align: center;
+  }
+  .registersection input {
+      font-size: 12px;
+      color: #6D6A6A;
+      margin-bottom: 15px;
+  }
+  .loginbtn{
+      background: #2e4256;
+      padding: 8px 30px;
+  }
+  .loginbtn:hover {
+      background: #213242;
+      border-color: #213242;
+  }
+  .accbutton p{
+      margin: 0 0 10px;
+      font-size: 11px;
+      margin-top: 13px;
+      text-align: center;
+  }
+  .accbutton {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }

@@ -4,6 +4,7 @@ const Enquires = require("../models/Enquires.js");
 const emailValidator = require("deep-email-validator");
 const path = require("path");
 const jwt = require("jsonwebtoken");
+const enquiry = require("../models/Enquires.js");
 
 async function isEmailValid(email) {
   return emailValidator.validate(email);
@@ -147,6 +148,51 @@ exports.isAuthuser = catchAsyncerror(async (req, res, next) => {
     console.log(req.user);
     next();
   }
+});
+exports.adddata = catchAsyncerror(async (req, res, next) => {
+
+console.log(req.files);
+const obj = JSON.parse(JSON.stringify(req.body))
+const {
+  customer,
+  Product_type,
+  PTI_No,
+  SONo_JobNo,
+  Panel_name,
+  Constructiontype,
+  Rating,
+  DispatchDate,
+  
+} = obj;
+console.log(Panel_name);
+    // Create a new instance of the FormData model
+    try {
+   await enquiry.create({
+       customer,
+       Product_type,
+       PTI_No,
+       SONo_JobNo,
+       Panel_name,
+       Constructiontype,
+       Rating,
+       DispatchDate,
+       files: req.files.map((file) => ({
+        originalname: file.originalname,
+        path: file.path,
+      })),
+      
+    });
+  
+    // Save the form data to the database
+      
+      res
+        .status(200)
+        .json({ message: "Form data and files uploaded successfully" });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  
+  
 });
 exports.dashboard = catchAsyncerror(async (req, res, next) => {
 
