@@ -3,47 +3,43 @@ const mongoose = require("mongoose");
 const enquireschema = new mongoose.Schema({
   customer: {
     type: String,
-      required:true
-  
+    required: true,
   },
   Product_type: {
     type: String,
-      required:true
-
-  
+    required: true,
   },
   PTI_No: {
     type: String,
-      required:true
-  
+    required: true,
   },
-  SONo_JobNo:{
+  SONo_JobNo: {
     type: String,
-      required:true
-  
+    required: true,
   },
-  Panel_name:{
+  Panel_name: {
     type: String,
-      required:true
-  
+    required: true,
   },
-  Constructiontype:{
+  Constructiontype: {
     type: String,
-      required:true
-  
+    required: true,
   },
-  Rating:{
-      type: Number,
-        required:true
-    
-    },
-  
-  
-    files: [{
+  Rating: {
+    type: Number,
+    required: true,
+  },
+  DispatchDate: {
+    type: Date,
+    required: true,
+  },
+
+  files: [
+    {
       originalname: String,
       path: String,
-    }
-  ]
+    },
+  ],
 });
-const enquiry =mongoose.model("Enquires",enquireschema);
-module.exports= enquiry
+const enquiry = mongoose.model("Enquires", enquireschema);
+module.exports = enquiry;

@@ -152,6 +152,7 @@ exports.isAuthuser = catchAsyncerror(async (req, res, next) => {
 exports.adddata = catchAsyncerror(async (req, res, next) => {
 
 console.log(req.files);
+
 const obj = JSON.parse(JSON.stringify(req.body))
 const {
   customer,

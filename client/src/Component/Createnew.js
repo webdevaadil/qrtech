@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
-export const Createnew = () => { 
-  const [data, setData] = useState({
+export const Createnew = () => {
+  const [file, setFile] = useState([]);
+  const [formDatas, setFormData] = useState({
     customer: "",
     Product_type: "",
     PTI_No: "",
@@ -12,27 +13,45 @@ export const Createnew = () => {
     DispatchDate: "",
     files: "",
   });
-  console.log(data);
-  const formData = new FormData();
-  const fileSelectHandler = (e) => {
-    const file = e.target.files[0];
-    console.log(file);
-    formData.append("img", file,file.name);
-    formData.append("Product_type", data.Product_type);
-    formData.append("PTI_No", data.PTI_No);
-    formData.append("SONo_JobNo", data.SONo_JobNo);
-    formData.append("Constructiontype", data.Constructiontype);
-    formData.append("Panel_name", data.Panel_name);
-    formData.append("Rating", data.Rating);
-    formData.append("DispatchDate", data.DispatchDate);
-    formData.append("customer", data.customer);
-};
 
-
-const submitfoam = (e) => {
-      console.log(...formData);
+  const handleChange = (e) => {
+    setFormData({
+      ...formDatas,
+      [e.target.name]: e.target.value
+    });
+  };
+  const handleFileChange = (e) => {
+    console.log(e.target.files);
+    
+    setFile(e.target.files);
+  };
+  console.log(file);
+  const submitfoam = async (e) => {
+    
     e.preventDefault();
-    axios.post("http://localhost:5000/api/auth/foamdata",formData);
+    console.log(file.length);
+   
+    const formData = new FormData();
+    formData.append('customer', formDatas.customer);
+    formData.append('Product_type', formDatas.Product_type);
+    formData.append('PTI_No', formDatas.PTI_No);
+    formData.append('SONo_JobNo', formDatas.SONo_JobNo);
+    formData.append('Panel_name', formDatas.Panel_name);
+    formData.append('Constructiontype', formDatas.Constructiontype);
+    formData.append('Rating', formDatas.Rating);
+    formData.append('DispatchDate', formDatas.DispatchDate);
+    for (let index = 0; index < file.length; index++) {
+      formData.append('img', file[index]);
+       
+     }
+    console.log(...formData);
+    const config = {
+      headers: { "content-type": "multipart/form-data" },
+    };
+    await axios.post(
+      "http://localhost:5000/api/auth/foamdata",
+      formData
+    );
   };
   return (
     <>
@@ -60,9 +79,7 @@ const submitfoam = (e) => {
               <form
                 class="form-horizontal"
                 id="enquiryForm"
-                method="POST"
                 onSubmit={submitfoam}
-                encType="multipart/form-data"
               >
                 <div class="form-group row mb-3">
                   <label for="customer" class="col-3 col-form-label">
@@ -75,10 +92,8 @@ const submitfoam = (e) => {
                       id="customer"
                       placeholder="Customer Name"
                       name="customer"
-                      value={data.customer}
-                      onChange={(e) => {
-                        setData({ ...data, [e.target.name]: e.target.value });
-                      }}
+                      value={formDatas.customer}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -92,9 +107,7 @@ const submitfoam = (e) => {
                       class="form-control select2 select2-hidden-accessible"
                       name="Product_type"
                       id="Product_type"
-                      onChange={(e) => {
-                        setData({ ...data, [e.target.name]: e.target.value });
-                      }}
+                      onChange={handleChange}
                       data-toggle="select2"
                       tabindex="-1"
                       aria-hidden="true"
@@ -139,9 +152,7 @@ const submitfoam = (e) => {
                             id="select2-product_type-container"
                             role="textbox"
                             aria-readonly="true"
-                          >
-                            
-                          </span>
+                          ></span>
                           <span
                             class="select2-selection__arrow"
                             role="presentation"
@@ -166,10 +177,8 @@ const submitfoam = (e) => {
                       id="pti_no"
                       placeholder="PTI No"
                       name="PTI_No"
-                      value={data.PTI_No}
-                      onChange={(e) => {
-                        setData({ ...data, [e.target.name]: e.target.value });
-                      }}
+                      value={formDatas.PTI_No}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -184,11 +193,9 @@ const submitfoam = (e) => {
                       class="form-control"
                       id="SONo_JobNo"
                       placeholder="S.O No. / Job No."
-                      value={data.SONo_JobNo}
+                      value={formDatas.SONo_JobNo}
                       name="SONo_JobNo"
-                      onChange={(e) => {
-                        setData({ ...data, [e.target.name]: e.target.value });
-                      }}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -204,10 +211,8 @@ const submitfoam = (e) => {
                       id="Panel_name"
                       placeholder="Panel Name"
                       name="Panel_name"
-                      value={data.Panel_name}
-                      onChange={(e) => {
-                        setData({ ...data, [e.target.name]: e.target.value });
-                      }}
+                      value={formDatas.Panel_name}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -221,9 +226,7 @@ const submitfoam = (e) => {
                       class="form-control"
                       name="Constructiontype"
                       id="Constructiontype"
-                      onChange={(e) => {
-                        setData({ ...data, [e.target.name]: e.target.value });
-                      }}
+                      onChange={handleChange}
                     >
                       <option value="Indoor">Indoor</option>
                       <option value="Outdoor">Outdoor</option>
@@ -243,10 +246,8 @@ const submitfoam = (e) => {
                       id="Rating"
                       placeholder="Rating"
                       name="Rating"
-                      value={data.Rating}
-                      onChange={(e) => {
-                        setData({ ...data, [e.target.name]: e.target.value });
-                      }}
+                      value={formDatas.Rating}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -262,7 +263,7 @@ const submitfoam = (e) => {
                       name="files[]"
                       class="form-control-file"
                       multiple="multiple"
-                      onChange={fileSelectHandler}
+                      onChange={handleFileChange}
                     />
                   </div>
                 </div>
@@ -278,11 +279,9 @@ const submitfoam = (e) => {
                       id="dispatch-date"
                       name="DispatchDate"
                       data-toggle="date-picker"
-                      value={data.DispatchDate}
+                      value={formDatas.DispatchDate}
                       data-single-date-picker="true"
-                      onChange={(e) => {
-                        setData({ ...data, [e.target.name]: e.target.value });
-                      }}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -305,7 +304,4 @@ const submitfoam = (e) => {
       </div>
     </>
   );
-}
-
-
-
+};
