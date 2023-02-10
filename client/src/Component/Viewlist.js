@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import styles from "../Css/dashboard.module.css";
+import styles from "../Css/Viewlist.module.css";
+import axios from'axios'
 
 export const Viewlist = () => {
+  const [data, setData] = useState();
+  
+  const getformdata=()=>{
+    axios("http://192.168.1.73:5000/api/auth/getalldata").then((res)=>{
+      console.log(res);
+      setData(res.data)
 
+    })
+  }
+  useEffect(() => {
+    getformdata()
+  }, []);
+  
+console.log(data);
   return (
     <div class={`${styles.cardbody}`}>
       <div class="row">
@@ -77,21 +91,25 @@ export const Viewlist = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td># 23</td>
-                <td>Test</td>
-                <td>LT Panels</td>
-                <td>6135123123</td>
-                <td>309498748474</td>
-                <td>EV Charger</td>
-                <td>Indoor</td>
+              {data&&data.map((item,index)=>{
+                console.log(item);
+                return(
+                  <tr>
+                <td># {index + 1}</td>
+                <td>{item.customer}</td>
+                <td>{item.Product_type}</td>
+                <td>{item.PTI_No}</td>
+                <td>{item.SONo_JobNo}</td>
+                <td>{item.Panel_name}</td>
+                <td>{item.Constructiontype}</td>
                 <td class="table-action text-center">
-                  <button
+                  <Link
+                   to={`/main/Prosnalpage/${item._id}`}
                     class="btn btn-primary"
                   >
                     <i class="mdi mdi-eye-outline"></i>{" "}
-                  </button>
-                  <button
+                  </Link>
+                  <button 
                     class="btn btn-warning"
                   >
                     <i class="mdi mdi-pencil"></i>{" "}
@@ -109,90 +127,9 @@ export const Viewlist = () => {
                   ></form>
                 </td>
               </tr>
-              <tr>
-                <td># 22</td>
-                <td>XYZ</td>
-                <td>LT Panels</td>
-                <td>3498747656</td>
-                <td>12987398834286</td>
-                <td>LT Panel</td>
-                <td>Indoor</td>
-                <td class="table-action text-center">
-                  <button
-                    class="btn btn-primary"
-                  >
-                    <i class="mdi mdi-eye-outline"></i>{" "}
-                  </button>
-                  <button
-                    class="btn btn-warning"
-                  >
-                    <i class="mdi mdi-pencil"></i>{" "}
-                  </button>
-                  <button
-                    type="button"
-                    onclick="confirmDelete(22)"
-                    class="btn btn-danger"
-                  >
-                    <i class="mdi mdi-delete"></i>{" "}
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td># 19</td>
-                <td>ABHDG</td>
-                <td>CSS</td>
-                <td>3817634876</td>
-                <td>334239832</td>
-                <td>HT Panel</td>
-                <td>Indoor</td>
-                <td class="table-action text-center">
-                  <button
-                    class="btn btn-primary"
-                  >
-                    <i class="mdi mdi-eye-outline"></i>{" "}
-                  </button>
-                  <button
-                    class="btn btn-warning"
-                  >
-                    <i class="mdi mdi-pencil"></i>{" "}
-                  </button>
-                  <button
-                    type="button"
-                    onclick="confirmDelete(19)"
-                    class="btn btn-danger"
-                  >
-                    <i class="mdi mdi-delete"></i>{" "}
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td># 8</td>
-                <td>myPowerExperts</td>
-                <td>HT Panels</td>
-                <td>947230427</td>
-                <td>34562109127</td>
-                <td>11KV HT Switchboard</td>
-                <td>Indoor</td>
-                <td class="table-action text-center">
-                  <button
-                    class="btn btn-primary"
-                  >
-                    <i class="mdi mdi-eye-outline"></i>{" "}
-                  </button>
-                  <button
-                    class="btn btn-warning"
-                  >
-                    <i class="mdi mdi-pencil"></i>{" "}
-                  </button>
-                  <button
-                    type="button"
-                    onclick="confirmDelete(8)"
-                    class="btn btn-danger"
-                  >
-                    <i class="mdi mdi-delete"></i>{" "}
-                  </button>
-                </td>
-              </tr>
+                )
+              })}
+           
             </tbody>
           </table>
         </div>

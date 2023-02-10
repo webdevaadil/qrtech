@@ -64,25 +64,30 @@ exports.login = catchAsyncerror(async (req, res, next) => {
     throw new Error(error);
   }
 });
+exports.getalldata=catchAsyncerror(async(req,res,next)=>{
+  const data=await Enquires.find()
+  res.status(200).json(data)
+})
 
 exports.downloadfile = catchAsyncerror(async (req, res, next) => {
-  console.log(req.params);
-  const formData = await Enquires.findById("63de5f13f7a59c3e94cb9fb9");
+  console.log(req.body);
+  const formData = await Enquires.findById({_id:req.body.id});
   console.log(formData);
   // Check if the form data exists
   if (!formData) {
     return res.status(404).json({ message: "Form data not found" });
   }
-
+  
   // Find the file in the form data
-  const file = formData.files.find((f) => f.originalname === req.body.files);
-
+  const file = formData.files.find((f) => f.originalname === req.body.e);
+  
   // Check if the file exists
   if (!file) {
     return res.status(404).json({ message: "File not found" });
   }
+  console.log(path.join(__dirname, "..", file.path),file.originalname)
   // Serve the file
-  res.download(path.join(__dirname, "..", file.path), file.originalname);
+  return  res.download(path.join(__dirname, "..", file.path)) 
 });
 exports.updateFoam = catchAsyncerror(async (req, res, next) => {
   const {
@@ -120,9 +125,9 @@ exports.updateFoam = catchAsyncerror(async (req, res, next) => {
   });
 });
 exports.edit = catchAsyncerror(async (req, res) => {
+
   let uid = req.body.id;
-  // console.log(req);
-  let data = await Enquires.findById({ _id: uid });
+  let data = await Enquires.findById({ _id:uid });
   // console.log(data);
   return res.json(data);
 });
@@ -150,62 +155,67 @@ exports.isAuthuser = catchAsyncerror(async (req, res, next) => {
   }
 });
 exports.adddata = catchAsyncerror(async (req, res, next) => {
+  console.log(req.files);
 
-console.log(req.files);
-
-const obj = JSON.parse(JSON.stringify(req.body))
-const {
-  customer,
-  Product_type,
-  PTI_No,
-  SONo_JobNo,
-  Panel_name,
-  Constructiontype,
-  Rating,
-  DispatchDate,
-  
-} = obj;
-console.log(Panel_name);
-    // Create a new instance of the FormData model
-    try {
-   await enquiry.create({
-       customer,
-       Product_type,
-       PTI_No,
-       SONo_JobNo,
-       Panel_name,
-       Constructiontype,
-       Rating,
-       DispatchDate,
-       files: req.files.map((file) => ({
+  const obj = JSON.parse(JSON.stringify(req.body));
+  const {
+    customer,
+    Product_type,
+    PTI_No,
+    SONo_JobNo,
+    Panel_name,
+    Constructiontype,
+    Rating,
+    DispatchDate,
+  } = obj;
+  if (
+    !customer &&
+    !Product_type &&
+    !PTI_No &&
+    !SONo_JobNo &&
+    !Panel_name &&
+    !Constructiontype &&
+    !Rating &&
+    DispatchDate
+  ) {
+    return res.status(500).json("Please fill all field");
+  }
+  console.log(customer);
+  console.log(obj);
+  // Create a new instance of the FormData model
+  try {
+    await enquiry.create({
+      customer,
+      Product_type,
+      PTI_No,
+      SONo_JobNo,
+      Panel_name,
+      Constructiontype,
+      Rating,
+      DispatchDate,
+      files: req.files.map((file) => ({
         originalname: file.originalname,
         path: file.path,
       })),
-      
     });
-  
+
     // Save the form data to the database
-      
-      res
-        .status(200)
-        .json({ message: "Form data and files uploaded successfully" });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  
-  
+
+    res
+      .status(200)
+      .json({ message: "Form data and files uploaded successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 exports.dashboard = catchAsyncerror(async (req, res, next) => {
-
   if (!req.user) {
     return res
       .status(401)
       .json({ message: "plese login to access this resource" });
   }
-console.log(req.user.id,"555");
+  console.log(req.user.id, "555");
   const user = await Users.findById(req.user.id);
-
-
 
   res.status(200).json({
     sucess: true,
@@ -225,6 +235,4 @@ const sendToken = async (user, statusCode, res) => {
     user,
     token,
   });
-  
-
 };

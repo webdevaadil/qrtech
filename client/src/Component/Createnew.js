@@ -32,6 +32,7 @@ export const Createnew = () => {
     console.log(file.length);
    
     const formData = new FormData();
+  
     formData.append('customer', formDatas.customer);
     formData.append('Product_type', formDatas.Product_type);
     formData.append('PTI_No', formDatas.PTI_No);
@@ -49,9 +50,11 @@ export const Createnew = () => {
       headers: { "content-type": "multipart/form-data" },
     };
     await axios.post(
-      "http://localhost:5000/api/auth/foamdata",
+      "http://192.168.1.73:5000/api/auth/foamdata",
       formData
-    );
+    ).then((res)=>{console.log(res.data.message);}).catch((res)=>{
+      console.log(res.data.message)
+    });
   };
   return (
     <>

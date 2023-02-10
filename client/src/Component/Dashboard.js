@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../Css/Dashboard.module.css";
+import axios from "axios";
 
 export const Dashboard = () => {
+  const [data, setData] = useState();
+  
+  const getformdata=()=>{
+    axios("http://192.168.1.73:5000/api/auth/getalldata").then((res)=>{
+      console.log(res);
+      setData(res.data)
+
+    })
+  }
+  useEffect(() => {
+    getformdata()
+  }, []);
   return (
     <div>
    
@@ -25,112 +38,38 @@ export const Dashboard = () => {
             <div class={`${styles.tableresponsive}`}>
               <table class="table table-centered table-nowrap table-hover mb-0">
                 <tbody>
-                  <tr>
+                  {data&&data.map((item,index)=>{
+return(
+  <tr>
                     <td>
-                      <h5 class={`${styles.tablefont} my-1`}>Test</h5>
+                      <h5 class={`${styles.tablefont} my-1`}>{item.customer}</h5>
                       <span class="text-muted font-13">Customer</span>
                     </td>
                     <td>
-                      <h5 class={`${styles.tablefont} my-1`}>LT Panels</h5>
+                      <h5 class={`${styles.tablefont} my-1`}>{item.Product_type}</h5>
                       <span class="text-muted font-13">Type</span>
                     </td>
                     <td>
-                      <h5 class={`${styles.tablefont} my-1`}>6135123123</h5>
+                    <h5 class={`${styles.tablefont} my-1`}>{item.PTI_No}</h5>
                       <span class="text-muted font-13">PTI No.</span>
                     </td>
                     <td>
-                      <h5 class={`${styles.tablefont} my-1`}>309498748474</h5>
+                    <h5 class={`${styles.tablefont} my-1`}>{item.SONo_JobNo}</h5>
                       <span class="text-muted font-13">Job No.</span>
                     </td>
                     <td>
-                      <h5 class={`${styles.tablefont} my-1`}>EV Charger</h5>
+                    <h5 class={`${styles.tablefont} my-1`}>{item.Panel_name}</h5>
                       <span class="text-muted font-13">Panel Name</span>
                     </td>
                     <td>
-                      <h5 class={`${styles.tablefont} my-1`}>Indoor</h5>
+                    <h5 class={`${styles.tablefont} my-1`}>{item.Constructiontype}</h5>
                       <span class="text-muted font-13">Construction Type</span>
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>XYZ</h5>
-                      <span class="text-muted font-13">Customer</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>LT Panels</h5>
-                      <span class="text-muted font-13">Type</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>3498747656</h5>
-                      <span class="text-muted font-13">PTI No.</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>12987398834286</h5>
-                      <span class="text-muted font-13">Job No.</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>LT Panel</h5>
-                      <span class="text-muted font-13">Panel Name</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>Indoor</h5>
-                      <span class="text-muted font-13">Construction Type</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>ABHDG</h5>
-                      <span class="text-muted font-13">Customer</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>CSS</h5>
-                      <span class="text-muted font-13">Type</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>3817634876</h5>
-                      <span class="text-muted font-13">PTI No.</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>334239832</h5>
-                      <span class="text-muted font-13">Job No.</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>HT Panel</h5>
-                      <span class="text-muted font-13">Panel Name</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>Indoor</h5>
-                      <span class="text-muted font-13">Construction Type</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>myPowerExperts</h5>
-                      <span class="text-muted font-13">Customer</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>HT Panels</h5>
-                      <span class="text-muted font-13">Type</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>947230427</h5>
-                      <span class="text-muted font-13">PTI No.</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>34562109127</h5>
-                      <span class="text-muted font-13">Job No.</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>
-                        11KV HT Switchboard
-                      </h5>
-                      <span class="text-muted font-13">Panel Name</span>
-                    </td>
-                    <td>
-                      <h5 class={`${styles.tablefont} my-1`}>Indoor</h5>
-                      <span class="text-muted font-13">Construction Type</span>
-                    </td>
-                  </tr>
+)
+                  })}
+                  
+                  
                 </tbody>
               </table>
             </div>

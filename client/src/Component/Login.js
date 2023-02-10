@@ -8,7 +8,7 @@ import { Navigate, redirect, useNavigate } from "react-router-dom";
 function Login() {
   const navigate = useNavigate();
   const [first, setfirst] = useState({ email: "", password: "" });
-  const baseurl = "http://192.168.1.73:5000";
+  const baseurl = "http://localhost:5000";
 
   const token = JSON.parse(localStorage.getItem("token"));
 useEffect(() => {

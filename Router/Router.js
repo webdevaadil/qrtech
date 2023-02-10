@@ -13,13 +13,15 @@ const {
   isAuthuser,
   dashboard,
   adddata,
+  getalldata,
 } = require("../Controller/auth");
 const enquiry = require("../models/Enquires");
 const upload = multer({ dest: "uploads/" });
 router.route("/register").post(register);
 router.route("/login").post(login);
 router.route("/me").post(isAuthuser, dashboard);
-router.route("/files").get(downloadfile);
+router.route("/files").post(downloadfile);
+router.route("/getalldata").get(getalldata);
 router.route("/updatefoam").post(updateFoam);
 router.route("/edit").post(edit);
 router.route("/delete").post(deletedata);

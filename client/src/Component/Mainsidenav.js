@@ -43,24 +43,23 @@ export const Mainsidenav = () => {
                         </li>
 
                         <li class="side-nav-item">
-                          <a  class="side-nav-link">
+                          <a class="side-nav-link">
                             <i class="mdi mdi-tools"></i>
                             <span> Settings </span>
                             <span class="menu-arrow"></span>
                           </a>
-
-                          <li>
-                            <a>
-                              <i class="mdi mdi-account-settings"></i>
-                              My Account
-                            </a>
-                          </li>
-                          <li>
-                            <a >
-                              <i class="mdi mdi-lock-outline"></i>
-                              Change Password
-                            </a>
-                          </li>
+                        </li>
+                        <li class="side-nav-item">
+                        <a class="side-nav-link">
+                            <i class="mdi mdi-account-settings"></i>
+                            My Account
+                          </a>
+                        </li>
+                        <li class="side-nav-item">
+                        <a class="side-nav-link">
+                            <i class="mdi mdi-lock-outline"></i>
+                            Change Password
+                          </a>
                         </li>
                       </ul>
 
