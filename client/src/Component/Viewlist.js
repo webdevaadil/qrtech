@@ -1,23 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../Css/Viewlist.module.css";
-import axios from'axios'
+import axios from "axios";
 
 export const Viewlist = () => {
-  const [data, setData] = useState();
-  
-  const getformdata=()=>{
-    axios("http://192.168.1.73:5000/api/auth/getalldata").then((res)=>{
-      console.log(res);
-      setData(res.data)
+  const [data, setData] = useState([]);
 
-    })
-  }
+  const getformdata = () => {
+    axios("http://192.168.1.73:5000/api/auth/getalldata")
+      .then((res) => {
+        console.log(res);
+        setData(res.data);
+      })
+  };
   useEffect(() => {
-    getformdata()
+    getformdata();
   }, []);
-  
-console.log(data);
+  const getdeletedata = (id) => {
+    axios
+      .post("http://192.168.1.73:5000/api/auth/delete", { id: id })
+      .then((res) => {
+        console.log(res);
+        setData(res.data);
+        getformdata()
+        console.log();
+      })
+  };
+  useEffect(() => {
+    getformdata();
+  }, []);
+
+  console.log(data);
   return (
     <div class={`${styles.cardbody}`}>
       <div class="row">
@@ -28,7 +41,7 @@ console.log(data);
         <div class="col-sm-8 text-right" style={{ textAlign: "right " }}>
           <Link to="/main/createnew" class="btn btn-success mb-3">
             <i class="mdi mdi-plus"></i> Add New
-          </Link >
+          </Link>
         </div>
         <form class={`${styles.seachfeilds} form-inline mb-2`}>
           <div class="form-group mr-1">
@@ -77,7 +90,10 @@ console.log(data);
           </div>
         </form>
         <div class="table-responsive">
-          <table class="table table-hover table-centered datatable datatable-ProductCategory">
+          <table
+            style={{ textAlign: "center" }}
+            class="table table-hover table-centered datatable datatable-ProductCategory"
+          >
             <thead class={`${styles.theaddark} `}>
               <tr>
                 <th>Ref</th>
@@ -91,51 +107,55 @@ console.log(data);
               </tr>
             </thead>
             <tbody>
-              {data&&data.map((item,index)=>{
-                console.log(item);
-                return(
-                  <tr>
-                <td># {index + 1}</td>
-                <td>{item.customer}</td>
-                <td>{item.Product_type}</td>
-                <td>{item.PTI_No}</td>
-                <td>{item.SONo_JobNo}</td>
-                <td>{item.Panel_name}</td>
-                <td>{item.Constructiontype}</td>
-                <td class="table-action text-center">
-                  <Link
-                   to={`/main/Prosnalpage/${item._id}`}
-                    class="btn btn-primary"
-                  >
-                    <i class="mdi mdi-eye-outline"></i>{" "}
-                  </Link>
-                  <button 
-                    class="btn btn-warning"
-                  >
-                    <i class="mdi mdi-pencil"></i>{" "}
-                  </button>
-                  <button
-                    type="button"
-                    onclick="confirmDelete(23)"
-                    class="btn btn-danger"
-                  >
-                    <i class="mdi mdi-delete"></i>{" "}
-                  </button>
-                  <form
-                    id="delete-form23"
-                    method="POST"
-                  ></form>
-                </td>
-              </tr>
-                )
-              })}
-           
+              {data.length > 0 ?(
+
+                
+                data.map((item, index) => {
+                  console.log(item);
+                  return (
+                    <tr>
+                      <td># {index + 1}</td>
+                      <td>{item.customer}</td>
+                      <td>{item.Product_type}</td>
+                      <td>{item.PTI_No}</td>
+                      <td>{item.SONo_JobNo}</td>
+                      <td>{item.Panel_name}</td>
+                      <td>{item.Constructiontype}</td>
+                      <td class="table-action text-center">
+                        <Link
+                          to={`/main/Prosnalpage/${item._id}`}
+                          class="btn btn-primary"
+                          >
+                          <i class="mdi mdi-eye-outline"></i>{" "}
+                        </Link>
+                        <Link
+                          to={`/main/Prosnalpage/edit/${item._id}`}
+                          class="btn btn-warning"
+                        >
+                          <i class="mdi mdi-pencil"></i>{" "}
+                        </Link>
+                        <button
+                          onClick={() => {
+                            getdeletedata(item._id);
+                          }}
+                          type="button"
+                          onclick="confirmDelete(23)"
+                          class="btn btn-danger"
+                          >
+                          <i class="mdi mdi-delete"></i>{" "}
+                        </button>
+                        <form id="delete-form23" method="POST"></form>
+                      </td>
+                    </tr>
+                  );
+                })
+                ):("")
+              }
             </tbody>
           </table>
         </div>
         <div class="col-sm-12"></div>
       </div>
-      
     </div>
   );
 };

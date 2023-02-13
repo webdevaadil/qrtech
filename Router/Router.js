@@ -1,7 +1,6 @@
 const express = require("express");
 const multer = require("multer");
 uuidv4 = require("uuid/v4");
-const DIR = "./public/";
 const router = express.Router();
 const {
   register,
@@ -22,7 +21,7 @@ router.route("/login").post(login);
 router.route("/me").post(isAuthuser, dashboard);
 router.route("/files").post(downloadfile);
 router.route("/getalldata").get(getalldata);
-router.route("/updatefoam").post(updateFoam);
+router.route("/updatefoam").post(upload.array("img"),updateFoam);
 router.route("/edit").post(edit);
 router.route("/delete").post(deletedata);
 router.route("/test").post(async(req,res)=>{

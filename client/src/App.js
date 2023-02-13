@@ -8,6 +8,7 @@ import { Dashboard } from "./Component/Dashboard.js";
 import {Createnew} from "./Component/Createnew.js";
 import { Prosnalpage } from "./Component/Prosnalpage.js";
 import { Result } from "./Component/Result.js";
+import { Editpenquire } from "./Component/Editpenquire.js";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="viewlist" element={<Viewlist />}></Route>
             <Route path="createnew" element={<Createnew />}></Route>
             <Route path="Prosnalpage/:id" element={<Prosnalpage />}></Route>
+            <Route path="Prosnalpage/edit/:id" element={<Editpenquire />}></Route>
           </Route>
             <Route path="/result/:id" element={<Result />}></Route>
         </Routes>

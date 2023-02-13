@@ -89,17 +89,31 @@ exports.downloadfile = catchAsyncerror(async (req, res, next) => {
   // Serve the file
   return  res.download(path.join(__dirname, "..", file.path)) 
 });
-exports.updateFoam = catchAsyncerror(async (req, res, next) => {
-  const {
-    customer,
-    Product_type,
-    PTI_No,
-    SONo_JobNo,
-    Panel_name,
+exports.updateFoam = catchAsyncerror (async (req, res, next) => {
+  console.log(req.files);
+  const obj = JSON.parse(JSON.stringify(req.body));
+  console.log(req.body);
+  try {
+    const {
+      customer,
+      Product_type,
+      PTI_No,
+      SONo_JobNo,
+      Panel_name,
     Constructiontype,
     Rating,
     DispatchDate,
-  } = req.body;
+    _id
+  } = obj;
+
+  const oldimg= await Enquires.findById(_id)
+  let a =req.files.map((file) => ({
+    originalname: file.originalname,
+    path: file.path,
+  }))
+  console.log(a,"a");
+  let newarr=oldimg.files.concat(a)
+  console.log(newarr);
   const newUserData = {
     customer,
     Product_type,
@@ -109,13 +123,9 @@ exports.updateFoam = catchAsyncerror(async (req, res, next) => {
     Constructiontype,
     Rating,
     DispatchDate,
-    files: req.files.map((file) => ({
-      originalname: file.originalname,
-      path: file.path,
-    })),
+    files: newarr,
   };
-
-  await Enquires.findByIdAndUpdate(req.body._id, newUserData, {
+  await Enquires.findByIdAndUpdate(obj._id, newUserData, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
@@ -123,6 +133,11 @@ exports.updateFoam = catchAsyncerror(async (req, res, next) => {
   res.status(200).json({
     success: "updated",
   });
+ } catch (error) {
+  res.status(500).json({
+    error
+  });
+ }
 });
 exports.edit = catchAsyncerror(async (req, res) => {
 
