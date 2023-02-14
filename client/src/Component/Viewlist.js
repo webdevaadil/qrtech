@@ -7,7 +7,7 @@ export const Viewlist = () => {
   const [data, setData] = useState([]);
 
   const getformdata = () => {
-    axios("http://192.168.1.73:5000/api/auth/getalldata")
+    axios("/api/auth/getalldata")
       .then((res) => {
         console.log(res);
         setData(res.data);
@@ -18,12 +18,11 @@ export const Viewlist = () => {
   }, []);
   const getdeletedata = (id) => {
     axios
-      .post("http://192.168.1.73:5000/api/auth/delete", { id: id })
+      .post("/api/auth/delete", { id: id })
       .then((res) => {
         console.log(res);
         setData(res.data);
         getformdata()
-        console.log();
       })
   };
   useEffect(() => {
@@ -33,9 +32,21 @@ export const Viewlist = () => {
   console.log(data);
   return (
     <div class={`${styles.cardbody}`}>
+      <div >
+        <div class={`${styles.viewlisttop} col-12`}>
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a>Home</a></li>
+                        <li class="breadcrumb-item active">Enquires</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
       <div class="row">
         <div class="col-sm-4">
-          <h3 class="header-title">Enquiries</h3>
+          <h3 class={`${styles.breadpagetitle} header-title`}>Enquiries</h3>
         </div>
 
         <div class="col-sm-8 text-right" style={{ textAlign: "right " }}>

@@ -13,7 +13,7 @@ export const Result = () => {
 
   const getformdata = () => {
     axios
-      .post("http://192.168.1.73:5000/api/auth/edit", { id: id })
+      .post("/api/auth/edit", { id: id })
       .then((res) => {
         console.log(res);
         setdata(res.data);
@@ -27,7 +27,7 @@ export const Result = () => {
     let id = data._id;
     const header = { responseType: "blob" };
     axios
-      .post("http://192.168.1.73:5000/api/auth/files", { e, id }, header)
+      .post("/api/auth/files", { e, id }, header)
       .then((response) => {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement("a");

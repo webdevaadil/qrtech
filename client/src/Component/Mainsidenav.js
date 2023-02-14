@@ -42,18 +42,12 @@ export const Mainsidenav = () => {
                           </Link>
                         </li>
 
+                      
                         <li class="side-nav-item">
-                          <a class="side-nav-link">
-                            <i class="mdi mdi-tools"></i>
-                            <span> Settings </span>
-                            <span class="menu-arrow"></span>
-                          </a>
-                        </li>
-                        <li class="side-nav-item">
-                        <a class="side-nav-link">
+                        <Link to={"/main/account "} class="side-nav-link">
                             <i class="mdi mdi-account-settings"></i>
                             My Account
-                          </a>
+                          </Link>
                         </li>
                         <li class="side-nav-item">
                         <a class="side-nav-link">

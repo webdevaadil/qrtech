@@ -96,10 +96,10 @@ useEffect(() => {
                   <p>
                     Don't have an account ?{" "}
                     <strong>
-                      <button >Register Here</button>
+                      <a >Register Here</a>
                     </strong>
                     <br />
-                    <button >Forget password ?</button>
+                    <a >Forget password ?</a>
                   </p>
                 </div>
                 <div className={styles.logincontent}>

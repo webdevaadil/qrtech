@@ -50,7 +50,7 @@ export const Createnew = () => {
       headers: { "content-type": "multipart/form-data" },
     };
     await axios.post(
-      "http://192.168.1.73:5000/api/auth/foamdata",
+      "/api/auth/foamdata",
       formData
     ).then((res)=>{console.log(res.data.message);}).catch((res)=>{
       console.log(res.data.message)
@@ -58,6 +58,7 @@ export const Createnew = () => {
   };
   return (
     <>
+    
       <div class="row">
         <div class="col-12">
           <div class="card">

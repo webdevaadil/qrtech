@@ -13,16 +13,21 @@ const {
   dashboard,
   adddata,
   getalldata,
+  updateprofile,
+  editprofile,
 } = require("../Controller/auth");
 const enquiry = require("../models/Enquires");
 const upload = multer({ dest: "uploads/" });
 router.route("/register").post(register);
+
 router.route("/login").post(login);
 router.route("/me").post(isAuthuser, dashboard);
 router.route("/files").post(downloadfile);
 router.route("/getalldata").get(getalldata);
 router.route("/updatefoam").post(upload.array("img"),updateFoam);
+router.route("/updateprofile").post(updateprofile);
 router.route("/edit").post(edit);
+router.route("/editprofile").post(editprofile);
 router.route("/delete").post(deletedata);
 router.route("/test").post(async(req,res)=>{
   console.log(req.user);

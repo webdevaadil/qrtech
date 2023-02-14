@@ -62,7 +62,7 @@ export const Editpenquire = () => {
     };
     console.log(...formData);
     await axios
-      .post("http://192.168.1.73:5000/api/auth/updatefoam", formData)
+      .post("/api/auth/updatefoam", formData)
       .then((res) => {
         console.log(res.data.message);
         setFile("")
@@ -76,7 +76,7 @@ export const Editpenquire = () => {
     let id = formDatas._id;
     const header = { responseType: "blob" };
     axios
-      .post("http://192.168.1.73:5000/api/auth/files", { e, id }, header)
+      .post("/api/auth/files", { e, id }, header)
       .then((response) => {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement("a");
@@ -149,6 +149,7 @@ export const Editpenquire = () => {
                       data-toggle="select2"
                       tabindex="-1"
                       onChange={handleChange}
+                      value={formDatas.Product_type}
                       aria-hidden="true"
                       data-select2-id="product_type"
                     >
@@ -272,7 +273,7 @@ export const Editpenquire = () => {
                       id="files"
                       name="files[]"
                       class="form-control-file"
-                      multiple=""
+                      multiple="multiple"
                     />
                   </div>
                 </div>
@@ -284,7 +285,7 @@ export const Editpenquire = () => {
                     <input
                       onChange={handleChange}
                       type="date"
-                      defaultValue={moment(
+                      value={moment(
                         new Date(formDatas.DispatchDate)
                       ).format("YYYY-MM-DD")}
                       class="form-control date"
