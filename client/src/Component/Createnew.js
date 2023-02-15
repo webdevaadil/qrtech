@@ -117,7 +117,7 @@ export const Createnew = () => {
                       aria-hidden="true"
                       data-select2-id="product_type"
                     >
-                      <option value="" data-select2-id="16">
+                      <option value="" data-select2-id="16" selected>
                         Select Product Type
                       </option>
                       <option value="HT Panels">HT Panels</option>
@@ -232,7 +232,7 @@ export const Createnew = () => {
                       id="Constructiontype"
                       onChange={handleChange}
                     >
-                      <option value="" disabled>Select any Construction Type</option>
+                      <option value="" selected disabled>Select any Construction Type</option>
                       <option value="Indoor">Indoor</option>
                       <option value="Outdoor">Outdoor</option>
                       <option value="Other">Other</option>

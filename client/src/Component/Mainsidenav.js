@@ -1,9 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../Css/Mainside.module.css";
 import mainnavlogo from "../Img/mainnavlogo.jpg";
 
 export const Mainsidenav = () => {
+  const nav= useNavigate()
+  const logout=()=>{
+    localStorage.removeItem("token")
+nav("/")
+  }
   return (
     <div className={styles.mainhead}>
       <div>
@@ -42,19 +47,30 @@ export const Mainsidenav = () => {
                           </Link>
                         </li>
 
-                      
                         <li class="side-nav-item">
-                        <Link to={"/main/account "} class="side-nav-link">
+                          <Link to={"/main/account"} class="side-nav-link">
                             <i class="mdi mdi-account-settings"></i>
                             My Account
                           </Link>
                         </li>
                         <li class="side-nav-item">
-                        <a class="side-nav-link">
+                          <Link
+                            class="side-nav-link"
+                            to={"/main/change-password"}
+                          >
                             <i class="mdi mdi-lock-outline"></i>
                             Change Password
-                          </a>
+                          </Link>
                         </li>
+            <div class="help-box text-white text-center">
+              <a
+                
+                class="btn btn-outline-light btn-sm"
+                onClick={logout}
+              >
+                Logout
+              </a>
+            </div>
                       </ul>
 
                       <div class="help-box text-white text-center"></div>
@@ -65,12 +81,6 @@ export const Mainsidenav = () => {
                 </div>
               </div>
               <div class="simplebar-placeholder"></div>
-            </div>
-            <div class="simplebar-track simplebar-horizontal">
-              <div class="simplebar-scrollbar"></div>
-            </div>
-            <div class="simplebar-track simplebar-vertical">
-              <div class="simplebar-scrollbar"></div>
             </div>
           </div>
         </div>

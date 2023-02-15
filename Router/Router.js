@@ -15,6 +15,8 @@ const {
   getalldata,
   updateprofile,
   editprofile,
+  updatePassword,
+  deletefile,
 } = require("../Controller/auth");
 const enquiry = require("../models/Enquires");
 const upload = multer({ dest: "uploads/" });
@@ -28,9 +30,12 @@ router.route("/updatefoam").post(upload.array("img"),updateFoam);
 router.route("/updateprofile").post(updateprofile);
 router.route("/edit").post(edit);
 router.route("/editprofile").post(editprofile);
+router.route("/updatePassword").post(updatePassword);
 router.route("/delete").post(deletedata);
-router.route("/test").post(async(req,res)=>{
-  console.log(req.user);
+router.route("/deletefile").post(deletefile);
+router.route("/downloadexcel").get(async(req,res)=>{
+  const data = await enquiry.find({},{__v: 0,_id:0,files:0} );
+  res.status(200).json(data);
 });
 // app.post('/api/formdata',);
 router.route("/foamdata").post(upload.array("img") ,adddata);

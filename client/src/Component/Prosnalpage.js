@@ -3,21 +3,20 @@ import styles from "../Css/Prosnalpage.module.css";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import QRCode from "react-qr-code";
+import * as FileSaver from "file-saver";
+
 export const Prosnalpage = () => {
   console.log(document.location.origin);
-  const [datasss, setdatasss] = useState();
 
   const { id } = useParams();
   console.log(id);
   const [data, setdata] = useState();
 
   const getformdata = () => {
-    axios
-      .post("/api/auth/edit", { id: id })
-      .then((res) => {
-        console.log(res);
-        setdata(res.data);
-      });
+    axios.post("/api/auth/edit", { id: id }).then((res) => {
+      console.log(res);
+      setdata(res.data);
+    });
   };
   useEffect(() => {
     getformdata();
@@ -26,18 +25,32 @@ export const Prosnalpage = () => {
   const downloadfile = (e) => {
     let id = data._id;
     const header = { responseType: "blob" };
-    axios
-      .post("/api/auth/files", { e, id }, header)
-      .then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement("a");
-        link.href = url;
-        console.log(response);
-        link.setAttribute("download", e);
-        document.body.appendChild(link);
-        link.click();
-      });
-    console.log(datasss);
+    axios.post("/api/auth/files", { e, id }, header).then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      console.log(response);
+      link.setAttribute("download", e);
+      document.body.appendChild(link);
+      link.click();
+    });
+  };
+  const deletefile = (e) => {
+    let id = data._id;
+    console.log(e);
+    axios.post("/api/auth/deletefile", { e, id }).then((response) => {
+      console.log(response);
+    });
+  };
+  const downloadqr = () => {
+    const fileExtension = ".png";
+    FileSaver.saveAs(
+      <QRCode
+        value={`${document.location.origin}/result/${data._id}`}
+        size={100}
+      />,
+      "excel" + fileExtension
+    );
   };
   return (
     <>
@@ -50,10 +63,17 @@ export const Prosnalpage = () => {
                   <h4 class="mt-2">Enquiries</h4>
                 </div>
                 <div class="col-md-8 text-right">
-                  {data&&
-                  <Link to={`/main/Prosnalpage/edit/${data._id}`} class="btn btn-warning">Edit</Link>
-                  }
-                  <Link to={`/main/viewlist`} class="btn btn-outline-dark">Back </Link>
+                  {data && (
+                    <Link
+                      to={`/main/Prosnalpage/edit/${data._id}`}
+                      class="btn btn-warning"
+                    >
+                      Edit
+                    </Link>
+                  )}
+                  <Link to={`/main/viewlist`} class="btn btn-outline-dark">
+                    Back{" "}
+                  </Link>
                 </div>
               </div>
             </div>
@@ -112,6 +132,9 @@ export const Prosnalpage = () => {
                                 </button>
                                 <button
                                   type="button"
+                                  onClick={() => {
+                                    deletefile(item.path);
+                                  }}
                                   class="btn btn-sm btn-danger"
                                   onclick="confirmDelete(39)"
                                 >
@@ -134,7 +157,7 @@ export const Prosnalpage = () => {
                           />
                         )}
 
-                        <button class="btn btn-primary mt-3" o>
+                        <button class="btn btn-primary mt-3" onClick={downloadqr}>
                           {" "}
                           Download
                         </button>

@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, redirect, Route, Routes, useNavigate } from "react-router-dom";
 import { Home } from "./Component/Home.js";
 import Login from "./Component/Login.js";
 import { Register } from "./Component/Register.js";
@@ -12,20 +12,25 @@ import { Editpenquire } from "./Component/Editpenquire.js";
 import { Account } from "./Component/Account.js";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Changepassword } from "./Component/Changepassword.js";
 
 function App() {
   const [user, setuser] = useState();
   const getacc = async () => {
     const token = JSON.parse(localStorage.getItem("token"));
-    await axios.post("/api/auth/me", { token }).then((res) => {
-      console.log(res);
-      setuser(res.data.user);
-     
-    }).catch((error)=>{
-      return
+    try {
+      await axios.post("/api/auth/me", { token }).then((res) => {
+        console.log(res);
+        setuser(res.data.user);
+       
+      })
+     } catch (error) {
        localStorage.removeItem("token")
-    });
-  };
+       redirect('/')
+      console.log(error);
+     }
+      };
+   
   console.log(user);
   useEffect(() => {
     getacc();
@@ -63,6 +68,7 @@ function App() {
                 element={<Editpenquire user={user} />}
               ></Route>
               <Route path="account" element={<Account user={user} />}></Route>
+              <Route path="change-password" element={<Changepassword />}></Route>
             </Route>
             <Route path="/result/:id" element={<Result />}></Route>
           </Routes>

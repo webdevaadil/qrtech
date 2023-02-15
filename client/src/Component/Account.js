@@ -14,7 +14,6 @@ export const Account = () => {
       })
       .catch((error) => {
         console.log(error);
-        return;
         localStorage.removeItem("token");
       });
   };
@@ -183,7 +182,9 @@ export const Account = () => {
                           class="btn btn-warning btn-sm"
                           form="accountForm"
                         >
-                          <i class="mdi mdi-content-save"></i> Update{" "}
+                          <i class="mdi mdi-content-save btn btn-warning btn-sm">
+                          <input class="btn btn-warning btn-sm"value="Update" type="submit" />
+                            </i>
                         </button>
                       </div>
                     </div>
