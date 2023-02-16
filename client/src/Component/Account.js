@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../Css/Account.module.css";
 import img from "../Img/accountimg.png";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const Account = () => {
   const [user, setuser] = useState();
@@ -28,7 +29,10 @@ export const Account = () => {
   const updatedata = async (e) => {
     e.preventDefault();
     const data = await axios.post("/api/auth/updateprofile", user);
-    console.log(data);
+    console.log(data.data.success);
+    if(data.data.success==='updated'){
+      toast.success('Update Successfully')
+    }
   };
 
   const setimg = async (e) => {

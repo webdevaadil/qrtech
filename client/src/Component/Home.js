@@ -5,6 +5,7 @@ import homeinmg from "../Img/secure.png";
 import { Footer } from "./Footer";
 import { Link } from "react-router-dom";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -16,6 +17,9 @@ export const Home = () => {
       
     }
   }, []);
+  const forgetpassword=()=>{
+    axios.post("/api/auth/forgetpassword")
+  }
   return (
     <>
       <Header />

@@ -48,6 +48,9 @@ useEffect(() => {
     // }
     // .then(navigate("/home"))
   };
+  const forgetpassword=()=>{
+    axios.post("/api/auth/forgetpassword")
+  }
   return (
     <>
       <Header />
@@ -99,7 +102,7 @@ useEffect(() => {
                       <a >Register Here</a>
                     </strong>
                     <br />
-                    <a >Forget password ?</a>
+                    <a onClick={forgetpassword} >Forget password ?</a>
                   </p>
                 </div>
                 <div className={styles.logincontent}>

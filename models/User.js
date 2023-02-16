@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
+const catchAsyncerror = require("../middleware/catchAsyncerror");
 
 const userSchema = new mongoose.Schema({
   firstname: {
@@ -29,6 +30,8 @@ const userSchema = new mongoose.Schema({
   profilepic: {
     type: String,
   },
+  resetPasswordToken:String,
+  resetPasswordExpire:Date
 });
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
@@ -49,6 +52,22 @@ userSchema.methods.getSignedToken = function () {
 userSchema.methods.matchPassword = async function (enteredpassword) {
   return await bcrypt.compare(enteredpassword, this.password);
 };
+ userSchema.methods.getResetPasswordToken = function(){
 
+//genrating token
+
+const resetToken = crypto.randomBytes(20).toString("hex")
+
+
+//hashing and adding resetPassword token to user schema
+this.resetPasswordToken = crypto
+.createHash("sha256")
+.update(resetToken)
+.digest("hex");
+
+this.resetPasswordExpire  = Date.now()+ 15 *60 *1000;
+return resetToken;
+
+ };
 const user = mongoose.model("qrlogin", userSchema);
 module.exports = user;

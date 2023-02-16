@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "../Css/Prosnalpage.module.css";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import QRCode from "react-qr-code";
-import * as FileSaver from "file-saver";
-
+import html2canvas from "html2canvas";
 export const Prosnalpage = () => {
   console.log(document.location.origin);
 
+  const divRef = useRef(null);
   const { id } = useParams();
   console.log(id);
   const [data, setdata] = useState();
@@ -21,7 +21,6 @@ export const Prosnalpage = () => {
   useEffect(() => {
     getformdata();
   }, []);
-  const nav = useNavigate();
   const downloadfile = (e) => {
     let id = data._id;
     const header = { responseType: "blob" };
@@ -35,23 +34,26 @@ export const Prosnalpage = () => {
       link.click();
     });
   };
+  const handleDownloadClick = () => {
+    html2canvas(divRef.current).then((canvas) => {
+      const imgData = canvas.toDataURL("image/jpg");
+      const link = document.createElement("a");
+      link.download = "my-image.jpg";
+      link.href = imgData;
+      link.click();
+    });
+  };
   const deletefile = (e) => {
     let id = data._id;
     console.log(e);
     axios.post("/api/auth/deletefile", { e, id }).then((response) => {
       console.log(response);
+    getformdata();
+
+
     });
   };
-  const downloadqr = () => {
-    const fileExtension = ".png";
-    FileSaver.saveAs(
-      <QRCode
-        value={`${document.location.origin}/result/${data._id}`}
-        size={100}
-      />,
-      "excel" + fileExtension
-    );
-  };
+
   return (
     <>
       <div class={`${styles.prosnaltop} row`}>
@@ -62,7 +64,7 @@ export const Prosnalpage = () => {
                 <div class="col-md-4">
                   <h4 class="mt-2">Enquiries</h4>
                 </div>
-                <div class="col-md-8 text-right">
+                <div class="col-md-8" style={{ textAlign: "end" }}>
                   {data && (
                     <Link
                       to={`/main/Prosnalpage/edit/${data._id}`}
@@ -149,18 +151,22 @@ export const Prosnalpage = () => {
                     <tr>
                       <th>QR Code</th>
 
-                      <td>
-                        {data && (
-                          <QRCode
-                            value={`${document.location.origin}/result/${data._id}`}
-                            size={100}
-                          />
-                        )}
-
-                        <button class="btn btn-primary mt-3" onClick={downloadqr}>
-                          {" "}
-                          Download
+                      <td class={styles.qrtabhead}>
+                        <div class={styles.qrtab} ref={divRef}>
+                          {data && (
+                            <QRCode
+                              value={`${document.location.origin}/result/${data._id}`}
+                              size={100}
+                            />
+                          )}
+                        </div>
+                        <button
+                          className="btn btn-primary"
+                          onClick={handleDownloadClick}
+                        >
+                          Download as Image
                         </button>
+                        <div id="qr"> </div>
                       </td>
                     </tr>
                   </tbody>

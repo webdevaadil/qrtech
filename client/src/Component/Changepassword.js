@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "../Css/Changepassword.module.css";
 import axios from "axios";
+import { toast } from "react-toastify";
+
 export const Changepassword = () => {
   const [user, setuser] = useState();
   const [data, setdata] = useState({
@@ -15,7 +17,11 @@ export const Changepassword = () => {
   console.log(data);
   const subform=(e)=>{
     e.preventDefault()
-    axios.post('/api/auth/updatePassword',{data,user})
+    axios.post('/api/auth/updatePassword',{data,user}).then((res)=>{
+      console.log(res)
+    }).catch((error)=>{
+      toast.error(error.response.data);
+    })
   }
   const getacc = async () => {
     const token = JSON.parse(localStorage.getItem("token"));

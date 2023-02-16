@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 export const Createnew = () => {
   const [file, setFile] = useState([]);
   const [formDatas, setFormData] = useState({
@@ -13,52 +14,65 @@ export const Createnew = () => {
     DispatchDate: "",
     files: "",
   });
+ 
 
   const handleChange = (e) => {
     setFormData({
       ...formDatas,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
   const handleFileChange = (e) => {
     console.log(e.target.files);
-    
+
     setFile(e.target.files);
   };
   console.log(file);
   const submitfoam = async (e) => {
-    
     e.preventDefault();
     console.log(file.length);
-   
+
     const formData = new FormData();
-  
-    formData.append('customer', formDatas.customer);
-    formData.append('Product_type', formDatas.Product_type);
-    formData.append('PTI_No', formDatas.PTI_No);
-    formData.append('SONo_JobNo', formDatas.SONo_JobNo);
-    formData.append('Panel_name', formDatas.Panel_name);
-    formData.append('Constructiontype', formDatas.Constructiontype);
-    formData.append('Rating', formDatas.Rating);
-    formData.append('DispatchDate', formDatas.DispatchDate);
+
+    formData.append("customer", formDatas.customer);
+    formData.append("Product_type", formDatas.Product_type);
+    formData.append("PTI_No", formDatas.PTI_No);
+    formData.append("SONo_JobNo", formDatas.SONo_JobNo);
+    formData.append("Panel_name", formDatas.Panel_name);
+    formData.append("Constructiontype", formDatas.Constructiontype);
+    formData.append("Rating", formDatas.Rating);
+    formData.append("DispatchDate", formDatas.DispatchDate);
     for (let index = 0; index < file.length; index++) {
-      formData.append('img', file[index]);
-       
-     }
+      formData.append("img", file[index]);
+    }
     console.log(...formData);
     const config = {
       headers: { "content-type": "multipart/form-data" },
     };
-    await axios.post(
-      "/api/auth/foamdata",
-      formData
-    ).then((res)=>{console.log(res.data.message);}).catch((res)=>{
-      console.log(res.data.message)
-    });
+    await axios
+      .post("/api/auth/foamdata", formData)
+      .then((res) => {
+        toast.success(res.data.message)
+        console.log(res.data.message);
+        setFormData({
+          customer: "",
+          Product_type: "",
+          PTI_No: "",
+          SONo_JobNo: "",
+          Panel_name: "",
+          Constructiontype: "",
+          Rating: "",
+          DispatchDate: "",
+          files: "",
+        })
+        setFile("")
+      })
+      .catch((res) => {
+        toast.error(res.data.message);
+      });
   };
   return (
     <>
-    
       <div class="row">
         <div class="col-12">
           <div class="card">
@@ -96,6 +110,7 @@ export const Createnew = () => {
                       id="customer"
                       placeholder="Customer Name"
                       name="customer"
+                      required
                       value={formDatas.customer}
                       onChange={handleChange}
                     />
@@ -114,6 +129,7 @@ export const Createnew = () => {
                       onChange={handleChange}
                       data-toggle="select2"
                       tabindex="-1"
+                      required
                       aria-hidden="true"
                       data-select2-id="product_type"
                     >
@@ -178,6 +194,7 @@ export const Createnew = () => {
                     <input
                       type="text"
                       class="form-control"
+                      required
                       id="pti_no"
                       placeholder="PTI No"
                       name="PTI_No"
@@ -193,6 +210,7 @@ export const Createnew = () => {
                   </label>
                   <div class="col-9">
                     <input
+                      required
                       type="text"
                       class="form-control"
                       id="SONo_JobNo"
@@ -210,6 +228,7 @@ export const Createnew = () => {
                   </label>
                   <div class="col-9">
                     <input
+                      required
                       type="text"
                       class="form-control"
                       id="Panel_name"
@@ -232,7 +251,9 @@ export const Createnew = () => {
                       id="Constructiontype"
                       onChange={handleChange}
                     >
-                      <option value="" selected disabled>Select any Construction Type</option>
+                      <option value="" required>
+                        Select any Construction Type
+                      </option>
                       <option value="Indoor">Indoor</option>
                       <option value="Outdoor">Outdoor</option>
                       <option value="Other">Other</option>
@@ -246,6 +267,7 @@ export const Createnew = () => {
                   </label>
                   <div class="col-9">
                     <input
+                      required
                       type="number"
                       class="form-control"
                       id="Rating"
@@ -264,6 +286,7 @@ export const Createnew = () => {
                   <div class="col-9">
                     <input
                       type="file"
+                      required
                       id="files"
                       name="files[]"
                       class="form-control-file"
@@ -280,6 +303,7 @@ export const Createnew = () => {
                   <div class="col-9">
                     <input
                       type="date"
+                      required
                       class="form-control date"
                       id="dispatch-date"
                       name="DispatchDate"

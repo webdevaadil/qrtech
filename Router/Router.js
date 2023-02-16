@@ -17,6 +17,8 @@ const {
   editprofile,
   updatePassword,
   deletefile,
+  forgetpassword,
+  resetPassword,
 } = require("../Controller/auth");
 const enquiry = require("../models/Enquires");
 const upload = multer({ dest: "uploads/" });
@@ -33,6 +35,9 @@ router.route("/editprofile").post(editprofile);
 router.route("/updatePassword").post(updatePassword);
 router.route("/delete").post(deletedata);
 router.route("/deletefile").post(deletefile);
+router.route("/forgetpassword").post(forgetpassword);
+router.route("/password/reset/:token").put(resetPassword)
+
 router.route("/downloadexcel").get(async(req,res)=>{
   const data = await enquiry.find({},{__v: 0,_id:0,files:0} );
   res.status(200).json(data);

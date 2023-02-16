@@ -1,4 +1,11 @@
-import { BrowserRouter, Navigate, redirect, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  redirect,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import { Home } from "./Component/Home.js";
 import Login from "./Component/Login.js";
 import { Register } from "./Component/Register.js";
@@ -13,7 +20,9 @@ import { Account } from "./Component/Account.js";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Changepassword } from "./Component/Changepassword.js";
-
+import { Forgetpassword } from "./Component/Forgetpassword.js";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [user, setuser] = useState();
   const getacc = async () => {
@@ -22,15 +31,14 @@ function App() {
       await axios.post("/api/auth/me", { token }).then((res) => {
         console.log(res);
         setuser(res.data.user);
-       
-      })
-     } catch (error) {
-       localStorage.removeItem("token")
-       redirect('/')
+      });
+    } catch (error) {
+      localStorage.removeItem("token");
+      redirect("/");
       console.log(error);
-     }
-      };
-   
+    }
+  };
+
   console.log(user);
   useEffect(() => {
     getacc();
@@ -51,28 +59,38 @@ function App() {
                 </Protectedroute>
               }
             >
-              <Route path="" element={<Dashboard user={user} />}>
+              <Route path="" element={<Dashboard />}>
                 {" "}
               </Route>
-              <Route path="viewlist" element={<Viewlist user={user} />}></Route>
-              <Route
-                path="createnew"
-                element={<Createnew user={user} />}
-              ></Route>
-              <Route
-                path="Prosnalpage/:id"
-                element={<Prosnalpage user={user} />}
-              ></Route>
+              <Route path="viewlist" element={<Viewlist />}></Route>
+              <Route path="createnew" element={<Createnew />}></Route>
+              <Route path="Prosnalpage/:id" element={<Prosnalpage />}></Route>
               <Route
                 path="Prosnalpage/edit/:id"
-                element={<Editpenquire user={user} />}
+                element={<Editpenquire />}
               ></Route>
-              <Route path="account" element={<Account user={user} />}></Route>
-              <Route path="change-password" element={<Changepassword />}></Route>
+              <Route path="account" element={<Account />}></Route>
+              <Route
+                path="change-password"
+                element={<Changepassword />}
+              ></Route>
             </Route>
-            <Route path="/result/:id" element={<Result />}></Route>
+            <Route path="/result/:id" element={<Result />} />
+            <Route path="/password/reset/:token" element={<Forgetpassword />} />
           </Routes>
         </BrowserRouter>
+        <ToastContainer
+      position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+    />
       </div>
     </>
   );
@@ -84,8 +102,7 @@ export function Protectedroute(props) {
   const token = JSON.parse(localStorage.getItem("token"));
 
   if (!token) {
-     
-        return <Navigate to="/login" />   ;
+    return <Navigate to="/login" />;
   } else {
     return props.children;
   }

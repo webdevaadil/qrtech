@@ -15,3 +15,16 @@
   top: 50px;
   position: relative;
 }
+.qrtab{
+  text-align: center;
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: white;
+  /* border: 2px solid; */
+  width: 171px;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import moment from "moment";
+import { toast } from "react-toastify";
 export const Editpenquire = () => {
   const [file, setFile] = useState([]);
   const getdata = () => {
@@ -64,9 +65,9 @@ export const Editpenquire = () => {
     await axios
       .post("/api/auth/updatefoam", formData)
       .then((res) => {
-        console.log(res.data.message);
-        setFile("")
-
+        toast.success(res.data.success);
+        setFile([])
+        getdata();
       })
       .catch((res) => {
         console.log(res.data.message);
@@ -87,7 +88,16 @@ export const Editpenquire = () => {
         link.click();
       });
   };
+  const deletefile = (e) => {
+    let id = formDatas._id;
+    console.log(e);
+    axios.post("/api/auth/deletefile", { e, id }).then((response) => {
+      console.log(response);
+      getdata();
 
+
+    });
+  };
   return (
     <>
       <div class={`row ${styles.edithead}`}>
@@ -252,7 +262,7 @@ export const Editpenquire = () => {
                   </label>
                   <div class="col-9">
                     <input
-                      type="text"
+                      type="number"
                       onChange={handleChange}
                       class="form-control"
                       id="rating"
@@ -308,21 +318,23 @@ export const Editpenquire = () => {
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                               {item.originalname}
                               <div class="btn-group mb-2">
-                                <button
+                                <a
                                   onClick={() => {
                                     downloadfile(item.originalname);
                                   }}
                                   class="btn btn-sm btn-primary"
                                 >
                                   <i class="mdi mdi-download"></i>{" "}
-                                </button>
-                                <button
+                                </a>
+                                <a
                                   type="button"
+                                  onClick={() => {
+                                    deletefile(item.path);
+                                  }}
                                   class="btn btn-sm btn-danger"
-                                  onclick="confirmDelete(39)"
                                 >
                                   <i class="mdi mdi-window-close"></i>{" "}
-                                </button>
+                                </a>
                               </div>
                             </li>
                           );
