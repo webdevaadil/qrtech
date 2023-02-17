@@ -1,0 +1,17 @@
+.creteHead {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border-radius: 0.25rem;
+    border: none;
+    box-shadow: 0 0 35px 0 rgb(154 161 171 / 15%);
+    margin-bottom: 24px;
+    padding: 1.5rem;
+    width: 80%;
+    float: right;
+    top: 50px;
+    position: relative;
+  }

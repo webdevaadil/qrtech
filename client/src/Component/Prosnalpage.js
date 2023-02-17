@@ -91,17 +91,10 @@ export const Prosnalpage = () => {
                       <th>Product Type</th>
                       <td>{data.Product_type}</td>
                     </tr>
-                    <tr>
-                      <th>PTI No</th>
-                      <td>{data.PTI_No}</td>
-                    </tr>
+                   
                     <tr>
                       <th>S No. / Job No.</th>
                       <td>{data.SONo_JobNo}</td>
-                    </tr>
-                    <tr>
-                      <th>Panel Name</th>
-                      <td>{data.Panel_name}</td>
                     </tr>
                     <tr>
                       <th>Construction Type</th>

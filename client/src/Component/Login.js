@@ -5,6 +5,7 @@ import Img from "../Img/login.png";
 import { Footer } from "./Footer";
 import axios from "axios";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 function Login() {
   const navigate = useNavigate();
   const [first, setfirst] = useState({ email: "", password: "" });
@@ -49,7 +50,9 @@ useEffect(() => {
     // .then(navigate("/home"))
   };
   const forgetpassword=()=>{
-    axios.post("/api/auth/forgetpassword")
+    axios.post("/api/auth/forgetpassword").then(()=>{
+      toast.info("Reset password link sent to register mail")
+    })
   }
   return (
     <>

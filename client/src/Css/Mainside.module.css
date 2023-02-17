@@ -1,5 +1,5 @@
 .leftsidemenu {
-    background: #3b5168;
+    background:#ff0101;
     width: 260px;
     z-index: 10;
     bottom: 0;
@@ -10,11 +10,16 @@
     box-shadow: 0 0 35px 0 rgb(154 161 171 / 15%);
   }
   .logo {
+  
     display: block;
     line-height: 70px;
+    z-index: 2;
     width: 260px;
     position: fixed;
-    top: 0;
+    top: -3px;
+    left: -71px;
+
+
   }
   
   div#left-side-menu-container {

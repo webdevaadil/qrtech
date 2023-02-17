@@ -17,7 +17,7 @@ const enquireschema = new mongoose.Schema({
     type: String,
     // required: true,
   },
-  Panel_name: {
+  Product_Name: {
     type: String,
     // required: true,
   },

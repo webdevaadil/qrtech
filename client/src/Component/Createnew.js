@@ -1,20 +1,26 @@
 import axios from "axios";
+import styles from "../Css/Createnew.module.css";
+
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Select from "react-select";
+import { Link } from "react-router-dom";
+
 export const Createnew = () => {
   const [file, setFile] = useState([]);
   const [formDatas, setFormData] = useState({
     customer: "",
     Product_type: "",
-    PTI_No: "",
     SONo_JobNo: "",
-    Panel_name: "",
+    Product_Name: "",
     Constructiontype: "",
     Rating: "",
     DispatchDate: "",
     files: "",
   });
- 
+  const [producttype, setproducttype] = useState();
+  const [contructiontype, setcontructiontype] = useState();
+  
 
   const handleChange = (e) => {
     setFormData({
@@ -23,11 +29,14 @@ export const Createnew = () => {
     });
   };
   const handleFileChange = (e) => {
-    console.log(e.target.files);
-
     setFile(e.target.files);
   };
-  console.log(file);
+  const handle = async (e) => {
+    setproducttype(e.value);
+  };
+  const constructionhandle = async (e) => {
+    setcontructiontype(e.value);
+  };
   const submitfoam = async (e) => {
     e.preventDefault();
     console.log(file.length);
@@ -35,45 +44,99 @@ export const Createnew = () => {
     const formData = new FormData();
 
     formData.append("customer", formDatas.customer);
-    formData.append("Product_type", formDatas.Product_type);
-    formData.append("PTI_No", formDatas.PTI_No);
+    formData.append("Product_type", producttype);
     formData.append("SONo_JobNo", formDatas.SONo_JobNo);
-    formData.append("Panel_name", formDatas.Panel_name);
-    formData.append("Constructiontype", formDatas.Constructiontype);
+    formData.append("Product_Name", formDatas.Product_Name);
+    formData.append("Constructiontype", contructiontype);
     formData.append("Rating", formDatas.Rating);
     formData.append("DispatchDate", formDatas.DispatchDate);
     for (let index = 0; index < file.length; index++) {
       formData.append("img", file[index]);
     }
-    console.log(...formData);
     const config = {
       headers: { "content-type": "multipart/form-data" },
     };
     await axios
       .post("/api/auth/foamdata", formData)
       .then((res) => {
-        toast.success(res.data.message)
-        console.log(res.data.message);
+        toast.success(res.data.message);
         setFormData({
           customer: "",
           Product_type: "",
-          PTI_No: "",
           SONo_JobNo: "",
-          Panel_name: "",
+          Product_Name: "",
           Constructiontype: "",
           Rating: "",
           DispatchDate: "",
           files: "",
-        })
-        setFile("")
+        });
+        setFile("");
       })
       .catch((res) => {
         toast.error(res.data.message);
       });
   };
+  const options = [
+    {
+      value: 'HT Panels',
+      label: 'HT Panels',
+         
+         
+    },
+    {
+      value:'LT panels',
+      label:'LT panels',
+       
+         
+    },
+    {
+      value: 'CSS',
+      label: 'CSS'
+        
+         
+    },
+    {
+      value: "AC Charger",
+      label: 'AC Charger'
+          
+         
+    },
+    {
+      value: "DC Charger",
+      label: 'DC Charger'
+          
+         
+    },
+    {
+      value: "Other Product",
+      label: 'Other Product'
+          
+         
+    },
+  ];
+  const Conoptions = [
+    {
+      value: 'Indoor',
+      label: 'Indoor',
+         
+         
+    },
+    {
+      value:'Outdoor',
+      label:'Outdoor',
+       
+         
+    },
+   
+  ];
+  const customStyles = {
+    height: 45,
+    zIndex: -999,
+  };
   return (
     <>
-      <div class="row">
+    <div className={styles.creteHead}>
+    <div class="row">
         <div class="col-12">
           <div class="card">
             <div class="card-body">
@@ -81,8 +144,10 @@ export const Createnew = () => {
                 <div class="col-md-4">
                   <h4 class="mt-2">Create Enquiry</h4>
                 </div>
-                <div class="col-md-8 text-right">
-                  <a class="btn btn-dark btn-sm">Back </a>
+                <div class="col-md-8" style={{textAlign:'right'}}>
+                <Link to={`/main/viewlist`} class="btn btn-outline-dark">
+                        Back{" "}
+                      </Link>
                   <button
                     type="submit"
                     class="btn btn-success btn-sm"
@@ -122,35 +187,18 @@ export const Createnew = () => {
                     Product Type
                   </label>
                   <div class="col-9">
-                    <select
-                      class="form-control select2 select2-hidden-accessible"
-                      name="Product_type"
-                      id="Product_type"
-                      onChange={handleChange}
-                      data-toggle="select2"
-                      tabindex="-1"
-                      required
-                      aria-hidden="true"
-                      data-select2-id="product_type"
-                    >
-                      <option value="" data-select2-id="16" selected>
-                        Select Product Type
-                      </option>
-                      <option value="HT Panels">HT Panels</option>
-                      <option value="LT Panels">LT Panels</option>
-                      <option value="C&amp;R Panels">C&amp;R Panels</option>
-                      <option value="CSS">CSS</option>
-                      <option value="RMU">RMU</option>
-                      <option value="OVCB">OVCB</option>
-                      <option value="CT">CT</option>
-                      <option value="PT">PT</option>
-                      <option value="LA">LA</option>
-                      <option value="Isolator">Isolator</option>
-                      <option value="Type 2 AC EV Charger">
-                        Type 2 AC EV Charger
-                      </option>
-                      <option value="Other">Other</option>
-                    </select>
+                  <Select
+                          className="Select_pack"
+                          placeholder="Product Type"
+                          options={options}
+                          styles={customStyles}
+                          onChange={handle}
+                          value={options.filter(function (option) {
+                            return option.value === producttype;
+                            })}
+                          // defaultValue={user.packages}
+                        />
+                  
                     <span
                       class="select2 select2-container select2-container--default"
                       dir="ltr"
@@ -186,23 +234,7 @@ export const Createnew = () => {
                   </div>
                 </div>
 
-                <div class="form-group row mb-3">
-                  <label for="pti_no" class="col-3 col-form-label">
-                    PTI No.
-                  </label>
-                  <div class="col-9">
-                    <input
-                      type="text"
-                      class="form-control"
-                      required
-                      id="pti_no"
-                      placeholder="PTI No"
-                      name="PTI_No"
-                      value={formDatas.PTI_No}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
+             
 
                 <div class="form-group row mb-3">
                   <label for="SONo_JobNo" class="col-3 col-form-label">
@@ -223,18 +255,18 @@ export const Createnew = () => {
                 </div>
 
                 <div class="form-group row mb-3">
-                  <label for="Panel_name" class="col-3 col-form-label">
-                    Panel Name
+                  <label for="Product_Name" class="col-3 col-form-label">
+                  Product Name
                   </label>
                   <div class="col-9">
                     <input
                       required
                       type="text"
                       class="form-control"
-                      id="Panel_name"
-                      placeholder="Panel Name"
-                      name="Panel_name"
-                      value={formDatas.Panel_name}
+                      id="Product_Name"
+                      placeholder=" Product Name"
+                      name="Product_Name"
+                      value={formDatas.Product_Name}
                       onChange={handleChange}
                     />
                   </div>
@@ -245,19 +277,18 @@ export const Createnew = () => {
                     Construction Type
                   </label>
                   <div class="col-9">
-                    <select
-                      class="form-control"
-                      name="Constructiontype"
-                      id="Constructiontype"
-                      onChange={handleChange}
-                    >
-                      <option value="" required>
-                        Select any Construction Type
-                      </option>
-                      <option value="Indoor">Indoor</option>
-                      <option value="Outdoor">Outdoor</option>
-                      <option value="Other">Other</option>
-                    </select>
+                  <Select
+                  placeholder="Construction Type"
+                          className="Select_pack"
+                          options={Conoptions}
+                          styles={customStyles}
+                          onChange={constructionhandle}
+                          value={Conoptions.filter(function (option) {
+                            return option.value === contructiontype;
+                            })}
+                          // defaultValue={user.packages}
+                        />
+                 
                   </div>
                 </div>
 
@@ -268,7 +299,7 @@ export const Createnew = () => {
                   <div class="col-9">
                     <input
                       required
-                      type="number"
+                      type="text"
                       class="form-control"
                       id="Rating"
                       placeholder="Rating"
@@ -331,6 +362,7 @@ export const Createnew = () => {
           </div>
         </div>
       </div>
+    </div>
     </>
   );
 };

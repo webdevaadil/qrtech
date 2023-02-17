@@ -59,21 +59,18 @@ export const Result = () => {
                     <th>PRODUCT TYPE</th>
                     <th>{data.Product_type}</th>
                   </tr>
-                  <tr>
-                    <th>PTI NO.</th>
-                    <th>{data.PTI_No}</th>
-                  </tr>
+                
                   <tr>
                     <th>S.O. NO.</th>
                     <th>{data.SONo_JobNo}</th>
                   </tr>
                   <tr>
-                    <th>PANEL NAME</th>
-                    <th>{data.Panel_name}</th>
+                    <th>PRODUCT NAME</th>
+                    <th>{data.Product_Name}</th>
                   </tr>
                   <tr>
-                    <th>TYPE OF PANEL</th>
-                    <th>{data.Panel_name}</th>
+                    <th>TYPE OF CONSTRUCTION</th>
+                    <th>{data.Constructiontype}</th>
                   </tr>
                   <tr>
                     <th>Rating</th>

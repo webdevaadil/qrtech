@@ -1,5 +1,5 @@
 .navbarcustom{
-    background-color: #3c5269;
+    background:#ffb7b7;
     box-shadow: none;
     padding: 0 24px;
     min-height: 70px;
@@ -18,8 +18,8 @@
     padding-top: 15px;
 }
 .navbarcustom .topbarrightmenu .navlink{
-    background-color: #3c5269;
-    border: 1px solid #3c5269;
+    background:transparent;
+    border:none;
     color: #f1f1f1;
 
     padding: 0;

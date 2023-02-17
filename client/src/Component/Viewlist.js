@@ -4,9 +4,19 @@ import styles from "../Css/Viewlist.module.css";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
+import { toast } from "react-toastify";
+import { Pagination } from "./Pagination.js";
+
+
 export const Viewlist = () => {
   const [data, setData] = useState([]);
+// 
+const [coustmersearch, setCoustmersearch] = useState('');
+const [jobno, setJobno] = useState('');
+const [proname, setProname] = useState('');
 
+
+// 
   const getformdata = () => {
     axios("/api/auth/getalldata").then((res) => {
       console.log(res);
@@ -21,6 +31,8 @@ export const Viewlist = () => {
       console.log(res);
       setData(res.data);
       getformdata();
+      toast.info("Delete Successfully")
+
     });
   };
   useEffect(() => {
@@ -41,6 +53,16 @@ export const Viewlist = () => {
     const datas = new Blob([excelBuffer], { type: fileType });
     FileSaver.saveAs(datas, "excel" + fileExtension);
   };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage] = useState(2);
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
+  const nPages = Math.ceil(data.length / recordsPerPage);
+  // console.log(currentRecords);
+
+
 
   return (
     <div class={`${styles.cardbody}`}>
@@ -84,39 +106,42 @@ export const Viewlist = () => {
                 type="text"
                 class="form-control"
                 id="filter_name"
-                name="filter_name"
-                value=""
+                name="customer"
+                value={coustmersearch}
+                onChange={(e)=>{setCoustmersearch(e.target.value)}}
               />
             </div>
           </div>
           <div class="form-group mr-1">
             <div class="input-group">
               <input
-                placeholder="Search by Job No"
+                placeholder="Search by Job No. & S.O No"
                 type="text"
                 class="form-control"
                 id="filter_job"
-                name="filter_job"
-                value=""
+                name="SONo_JobNo"
+                value={jobno}
+                onChange={(e)=>{
+setJobno(e.target.value)
+                }}
               />
             </div>
           </div>
           <div class="form-group">
             <div class="input-group">
               <input
-                placeholder="Search by PTI No"
+                placeholder="Search by Product Name"
                 type="text"
                 class="form-control"
                 id="filter_pti"
-                name="filter_pti"
-                value=""
+                name="Product_Name"
+                onChange={(e)=>{setProname(e.target.value)}}
+                value={proname}
               />
             </div>
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-outline-primary ml-2 ">
-              Submit
-            </button>
+          
             <button class="btn btn-outline-danger ml-1">
               <i class="mdi mdi-autorenew"></i> Reset
             </button>
@@ -132,25 +157,35 @@ export const Viewlist = () => {
                 <th>Ref</th>
                 <th>Customer Name</th>
                 <th>Product Type</th>
-                <th>PTI No.</th>
+                <th>Product Name.</th>
                 <th>Job No.</th>
-                <th>Panel Name</th>
                 <th>Construction Type</th>
                 <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
               {data.length > 0
-                ? data.map((item, index) => {
+                ? currentRecords.filter((value) => {
+                  return (
+                    `${value.customer} `.toLowerCase().match(coustmersearch.toLowerCase())
+                  )
+                }).filter((value) => {
+                  return (
+                    ` ${value.SONo_JobNo} `.toLowerCase().match(jobno.toLowerCase())
+                  )
+                }).filter((value) => {
+                  return (
+                    `${value.Product_Name}`.toLowerCase().match(proname.toLowerCase())
+                  )
+                }).map((item, index) => {
                     console.log(item);
                     return (
                       <tr>
                         <td># {index + 1}</td>
                         <td>{item.customer}</td>
                         <td>{item.Product_type}</td>
-                        <td>{item.PTI_No}</td>
+                        <td>{item.Product_Name}</td>
                         <td>{item.SONo_JobNo}</td>
-                        <td>{item.Panel_name}</td>
                         <td>{item.Constructiontype}</td>
                         <td class="table-action text-center">
                           <Link
@@ -186,6 +221,11 @@ export const Viewlist = () => {
         </div>
         <div class="col-sm-12"></div>
       </div>
+      <Pagination
+        nPages={nPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };

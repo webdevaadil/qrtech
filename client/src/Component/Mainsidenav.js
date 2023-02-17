@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../Css/Mainside.module.css";
-import mainnavlogo from "../Img/mainnavlogo.jpg";
+import mainnavlogo from "../Img/Trisquare Logo_page-0001.png";
 
 export const Mainsidenav = () => {
   const nav= useNavigate()
@@ -15,7 +15,7 @@ nav("/")
         <div class={`${styles.leftsidemenu} mm-show`}>
           <span class={`${styles.logo} text-center logo-light`}>
             <span class="logo-lg">
-              <img src={mainnavlogo} alt="Logo" />
+              <img src={mainnavlogo} alt="Logo" style={{width:'50px'  }}/>
             </span>
           </span>
 

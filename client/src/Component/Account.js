@@ -60,7 +60,6 @@ export const Account = () => {
                     <li class="breadcrumb-item">
                       <a>Home</a>
                     </li>
-                    <li class="breadcrumb-item">Settings</li>
                     <li class="breadcrumb-item active">My Account</li>
                   </ol>
                 </div>

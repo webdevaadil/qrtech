@@ -57,9 +57,9 @@ export const Dashboard = () => {
                           </td>
                           <td>
                             <h5 class={`${styles.tablefont} my-1`}>
-                              {item.PTI_No}
+                              {item.Rating}
                             </h5>
-                            <span class="text-muted font-13">PTI No.</span>
+                            <span class="text-muted font-13">Rating.</span>
                           </td>
                           <td>
                             <h5 class={`${styles.tablefont} my-1`}>
@@ -69,9 +69,9 @@ export const Dashboard = () => {
                           </td>
                           <td>
                             <h5 class={`${styles.tablefont} my-1`}>
-                              {item.Panel_name}
+                              {item.Product_Name}
                             </h5>
-                            <span class="text-muted font-13">Panel Name</span>
+                            <span class="text-muted font-13">Product Name</span>
                           </td>
                           <td>
                             <h5 class={`${styles.tablefont} my-1`}>

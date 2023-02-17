@@ -19,6 +19,8 @@ export const Changepassword = () => {
     e.preventDefault()
     axios.post('/api/auth/updatePassword',{data,user}).then((res)=>{
       console.log(res)
+      toast.info("Update Successfully")
+
     }).catch((error)=>{
       toast.error(error.response.data);
     })
@@ -29,6 +31,7 @@ export const Changepassword = () => {
       .post("/api/auth/me", { token })
       .then((res) => {
         setuser(res.data.user);
+
       })
       .catch((error) => {
         console.log(error);
@@ -50,7 +53,6 @@ export const Changepassword = () => {
                   <li class="breadcrumb-item">
                     <a>Home</a>
                   </li>
-                  <li class="breadcrumb-item">Settings</li>
                   <li class="breadcrumb-item active">Change Password</li>
                 </ol>
               </div>
