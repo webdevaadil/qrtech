@@ -29,9 +29,9 @@ export const Home = () => {
             <h2 style={{ fontSize: "3rem" }}>
               Organized and Secure
               <br />
-              <b style={{ fontWeight: "bolder" }}>Access to all your files</b>
+              <p style={{ fontWeight: "bolder" ,color:"white", marginTop:"10px" }}>Access to all your files</p>
             </h2>
-            <button className="btn btn ">
+            <button className="btn btn " style={{backgroundColor:"#eb4b4b"}}>
               <Link style={{textDecoration:"none" ,color:"white"}}to='/register'>
               sign up For Free</Link>
             </button>

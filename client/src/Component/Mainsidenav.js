@@ -13,20 +13,11 @@ nav("/")
     <div className={styles.mainhead}>
       <div>
         <div class={`${styles.leftsidemenu} mm-show`}>
-          <span class={`${styles.logo} text-center logo-light`}>
-            <span class="logo-lg">
-              <img src={mainnavlogo} alt="Logo" style={{width:'50px'  }}/>
-            </span>
-          </span>
+        <span class="header_logo__flVO7 text-center logo-light"><span class="logo-lg"><img src={mainnavlogo}alt="Logo" style={{width:' 90px'}}/></span></span>
 
-          <div
-            class="h-100 mm-active"
-            id="left-side-menu-container"
-            data-simplebar="init"
-          >
+        
             <div class="simplebar-wrapper">
               <div class="simplebar-height-auto-observer-wrapper">
-                <div class="simplebar-height-auto-observer"></div>
               </div>
               <div class={`${styles.simplebarmask}`}>
                 <div class="simplebar-offset">
@@ -85,6 +76,6 @@ nav("/")
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };

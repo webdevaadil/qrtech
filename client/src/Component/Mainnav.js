@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { redirect } from "react-router-dom";
 import styles from "../Css/Mainnav.module.css";
 import mainnavlogo from "../Img/avatar.jpg";
 import { Mainsidenav } from "./Mainsidenav.js";
+import axios from "axios";
 
 export const Mainnav = () => {
+  const [user, setuser] = useState();
+  const getacc = async () => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    try {
+      await axios.post("/api/auth/me", { token }).then((res) => {
+        console.log(res);
+        setuser(res.data.user);
+      });
+    } catch (error) {
+      localStorage.removeItem("token");
+      redirect("/");
+      console.log(error);
+    }
+  };
+
+  console.log(user);
+  useEffect(() => {
+    getacc();
+  }, []);
   return (
     <>
+    {user&&<>
       <div class={`${styles.navbarcustom}`}>
         <ul class={`${ styles.topbarrightmenu} list-unstyled float-right mb-0`}>
           <li class="dropdown notification-list">
@@ -24,7 +46,7 @@ export const Mainnav = () => {
                 />
               </span>
               <span>
-                <span class="account-user-name">User</span>
+                <span class="account-user-name">{user.firstname}</span>
               </span>
             </button>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
@@ -57,7 +79,7 @@ export const Mainnav = () => {
         </ul>
      
       </div>
-      <Mainsidenav/>
+      <Mainsidenav/></>}
     </>
   );
 };
