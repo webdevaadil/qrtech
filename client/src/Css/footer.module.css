@@ -1,6 +1,6 @@
 .footersection{
-    background-color: #111111;
-    padding: 30px;
+    background-color: #EAEAEA;
+    padding: 10px;
 }
 .listinline{
     display: inline-block;
@@ -8,12 +8,13 @@
     padding-left: 5px;
 }
 .listinline a{
-    color: #C2C2C2 !important;
+    color: #000000 !important;
     text-decoration: none;
     font-size: 12px;
 }
 .listinlineul{
     text-align: center;
+    margin-top: 20px;
 }
 .blog{
     background-color: rgb(255, 255, 255);
@@ -24,11 +25,18 @@
     justify-content: space-around;
 }
 .blog li{
+  
     font-size: 10px;
- width: 11%;
- list-style-type: none;
+    width: 19%;
+    list-style-type: none;
+    border: 2px solid #CCCCCC;
+    background-color: #F8F8F8;
+    text-align: left;
+    padding: 10px 20px;
 }
 .blog h2{
-    font-size: 20px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #B12C23;
  
 }

@@ -1,62 +1,55 @@
-.header{
-    /* background-color:#f04a54; */
-    
-    height: 120px;
-    display: flex;
-    align-items: center;
+.header {
+  /* background-color:#f04a54; */
 
-    
-    
+  height: 120px;
+  display: flex;
+  align-items: center;
 }
 .logo {
-  
-    display: block;
-    line-height: 70px;
-    z-index: 2;
-    width: 260px;
-    
+  display: block;
+  line-height: 70px;
+  z-index: 2;
+  width: 260px;
+}
 
-
-  }
-
-.headerfirst{
-width: 85%;
-margin: 0 auto;
-    display: grid;
-    grid-template-areas: "logo nav";
+.headerfirst {
+  width: 85%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-areas: "logo nav";
 }
-.nav{
-    grid-area: nav;
-    display: grid;
-    grid-template-columns: repeat(2,auto);
-    align-items: center;
-    justify-content: end;
+.nav {
+  grid-area: nav;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  align-items: center;
+  justify-content: end;
 }
-.navitem{
-    margin: 0 30px;
+.navitem {
+  margin: 0 30px;
 }
-.navitemlogin{
-    background: #FFF;
-    margin-right: 11px;
-    font-size: 14px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    color: #2e4256;
-    border-color: #2e4256;
-    padding: 8px 32px;
-    border-radius: 3px;
+.navitemlogin {
+  background: #fff;
+  margin-right: 11px;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #4da049;
+  border-color: #4da049;
+  padding: 8px 32px;
+  border-radius: 32px;
 }
-.navitemlogin:hover{
-color: #FFF;
-border-color:#eb4b4b;
-background:#eb4b4b;}
-.navitemgetstart{
-    background: #eb4b4b;
-    font-size: 14px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    color: #FFF;
-    border-color: #2e4256;
-    padding: 8px 16px;
-    border-radius: 3px;
+.navitemlogin:hover {
+  color: #fff;
+  border-color: #eb4b4b;
+  background: #eb4b4b;
+}
+.navitemgetstart {
+  background: #B12C23;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
 }

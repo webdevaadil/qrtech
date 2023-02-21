@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../Css/Changepassword.module.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const Changepassword = () => {
   const [user, setuser] = useState();
@@ -25,6 +26,7 @@ export const Changepassword = () => {
       toast.error(error.response.data);
     })
   }
+  const nav=useNavigate()
   const getacc = async () => {
     const token = JSON.parse(localStorage.getItem("token"));
     await axios
@@ -36,6 +38,7 @@ export const Changepassword = () => {
       .catch((error) => {
         console.log(error);
         localStorage.removeItem("token");
+        nav('/')
       });
   };
 
@@ -60,32 +63,39 @@ export const Changepassword = () => {
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" style={{boxShadow:"0 0 35px 0 rgb(154 161 171 / 60%"}}>
           <div class="col-12">
-            <div class="card border-dark border">
-              <div class="card-header">
-                <div class="row">
-                  <div class="col-md-4">
-                    <h4 class="mt-2">Password</h4>
-                  </div>
-                  <div class="col-md-8 " style={{ textAlign: "right" }}>
-                    <a class="btn btn-dark btn-sm">Back </a>
-                    <button
-                      type="submit"
-                      class="btn btn-warning btn-sm"
-                      form="passwordForm"
-                    >
-                      <i class="mdi mdi-key"></i> Update{" "}
-                    </button>
-                  </div>
-                </div>
-              </div>
+            <div class="card " style={{border:"none"}}>
+             
               <div class="card-body">
                 <form
                   class="form-horizontal"
                   onSubmit={subform}
                   enctype="multipart/form-data"
                 >
+                   <div class="card-header" style={{backgroundColor:"transparent"}}>
+                <div class="row">
+                  <div class="col-md-4">
+                    <h4 class="mt-2">Password</h4>
+                  </div>
+                  <div class="col-md-8 " style={{ textAlign: "right" }}>
+                    <button class={`btn btn-dark btn-sm ${styles.backbutton}` } >Back </button>
+                    <button
+                        type="submit"
+                        class="btn btn-warning btn-sm"
+                        form="passwordForm"
+                      >
+                        <i class="mdi mdi-key" type="submit">
+                          <input
+                            class="btn btn-warning btn-sm"
+                            value="Update"
+                            type="submit"
+                          />
+                        </i>
+                      </button>
+                  </div>
+                </div>
+              </div>
                   <div class="form-group mb-3">
                     <label for="current_password">Current Password</label>
                     <div class="input-group input-group-merge">
@@ -101,7 +111,7 @@ export const Changepassword = () => {
                         onChange={handle}
                       />
                       <div class="input-group-append" data-password="false">
-                        <div class="input-group-text">
+                        <div class="input-group-text" style={{height:"40px"}}>
                           <span class={`${styles.passwordeye}`}></span>
                         </div>
                       </div>
@@ -123,7 +133,7 @@ export const Changepassword = () => {
                         onChange={handle}
                       />
                       <div class="input-group-append" data-password="false">
-                        <div class="input-group-text">
+                        <div class="input-group-text" style={{height:"40px"}}>
                           <span class={`${styles.passwordeye}`}></span>
                         </div>
                       </div>
@@ -147,7 +157,7 @@ export const Changepassword = () => {
                         onChange={handle}
                       />
                       <div class="input-group-append" data-password="false">
-                        <div class="input-group-text">
+                        <div class="input-group-text" style={{height:"40px"}}>
                           <span class={`${styles.passwordeye}`}></span>
                         </div>
                       </div>

@@ -32,7 +32,7 @@ export const Mainnav = () => {
         <ul class={`${ styles.topbarrightmenu} list-unstyled float-right mb-0`}>
           <li class="dropdown notification-list">
             <button
-              class={`${styles.navlink} dropdown-toggle nav-user arrow-none mr-0`}
+              class={`${styles.navlink} `}
               data-toggle="dropdown"
               role="button"
               aria-haspopup="false"
@@ -40,7 +40,7 @@ export const Mainnav = () => {
             >
               <span class="account-user-avatar">
                 <img
-                  src={mainnavlogo}
+                  src={user.profilepic}
                   alt="user-image"
                   class="rounded-circle"
                 />
@@ -49,7 +49,7 @@ export const Mainnav = () => {
                 <span class="account-user-name">{user.firstname}</span>
               </span>
             </button>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
+            {/* <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome !</h6>
               </div>
@@ -74,7 +74,7 @@ export const Mainnav = () => {
                 <i class="mdi mdi-logout mr-1"></i>
                 <span>Logout</span>
               </button>
-            </div>
+            </div> */}
           </li>
         </ul>
      

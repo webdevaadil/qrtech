@@ -26,12 +26,12 @@ export const Home = () => {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.baneerleft}>
-            <h2 style={{ fontSize: "3rem" }}>
+            <h2 style={{ fontSize: "3rem" ,fontWeight: "bolder" ,color:"white", marginTop:"10px"}}>
               Organized and Secure
               <br />
-              <p style={{ fontWeight: "bolder" ,color:"white", marginTop:"10px" }}>Access to all your files</p>
+              <p style={{  }}>Access to all your files</p>
             </h2>
-            <button className="btn btn " style={{backgroundColor:"#eb4b4b"}}>
+            <button className="btn btn " style={{backgroundColor:"#B12C23",borderRadius:"32px"}}>
               <Link style={{textDecoration:"none" ,color:"white"}}to='/register'>
               sign up For Free</Link>
             </button>

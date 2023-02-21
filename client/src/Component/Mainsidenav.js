@@ -20,7 +20,7 @@ nav("/")
               <div class="simplebar-height-auto-observer-wrapper">
               </div>
               <div class={`${styles.simplebarmask}`}>
-                <div class="simplebar-offset">
+                <div class={styles.simplebaroffset}>
                   <div class="simplebar-content-wrapper">
                     <div class="simplebar-content">
                       <ul class={`${styles.metismenu} side-nav mm-show`}>
@@ -53,15 +53,15 @@ nav("/")
                             Change Password
                           </Link>
                         </li>
-            <div class="help-box text-white text-center">
-              <a
-                
-                class="btn btn-outline-light btn-sm"
-                onClick={logout}
-              >
-                Logout
-              </a>
-            </div>
+                        <li class="side-nav-item">
+                          <a  onClick={logout}
+                            class="side-nav-link"
+                          >
+                            <i class="mdi mdi-lock-outline"></i>
+                            Logout
+                          </a>
+                        </li>
+          
                       </ul>
 
                       <div class="help-box text-white text-center"></div>

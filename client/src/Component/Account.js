@@ -3,9 +3,12 @@ import styles from "../Css/Account.module.css";
 import img from "../Img/accountimg.png";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const Account = () => {
   const [user, setuser] = useState();
+  const nav=useNavigate()
+
   const getacc = async () => {
     const token = JSON.parse(localStorage.getItem("token"));
     await axios
@@ -16,6 +19,8 @@ export const Account = () => {
       .catch((error) => {
         console.log(error);
         localStorage.removeItem("token");
+ nav('/')
+
       });
   };
   console.log(user);
@@ -52,9 +57,9 @@ export const Account = () => {
     <>
       {user ? (
         <div className={`${styles.accounttop}`}>
-          <div class="row">
+          {/* <div class="row">
             <div class="col-12">
-              <div class="page-title-box">
+              <div class="page-title-box" style={{marginTop:"20px"}}>
                 <div class={`${styles.pagetitleright}`}>
                   <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item">
@@ -62,15 +67,30 @@ export const Account = () => {
                     </li>
                     <li class="breadcrumb-item active">My Account</li>
                   </ol>
-                </div>
                 <h4 class={`${styles.pagetitle}`}>My Account</h4>
+                </div>
               </div>
             </div>
+          </div> */}
+          <div class={`${styles.viewlisttop} col-12`}>
+          <div class="col-sm-4">
+            <h3 class={`${styles.breadpagetitle} header-title`}>My Account</h3>
           </div>
+          <div class="page-title-box">
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item">
+                  <a>Home</a>
+                </li>
+                <li class="breadcrumb-item active">My Account</li>
+              </ol>
+            </div>
+          </div>
+        </div>
           <div class="row">
             <div class="col-12">
               <form onSubmit={updatedata}>
-                <div class="card border-dark border">
+                <div class="card "style={{boxShadow:"0 0 35px 0 rgb(154 161 171 / 60%"}}>
                   <div class="card-header">
                     <div class="row">
                       <div class="col-md-4">

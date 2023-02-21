@@ -5,7 +5,9 @@
     position: fixed;
     transition: all 0.2s ease-out;
     top: 0;
-    background:linear-gradient(176deg, rgba(15,63,20,1) 38%, rgba(60,143,79,1) 70%);
+    /* background:linear-gradient(334deg, rgba(15,63,20,1) 38%, #800000 70%); */
+  /* background: linear-gradient(131deg, #2a0000 38%, #800000 70%) */
+
 }
   .logo {
   
@@ -49,7 +51,7 @@
       width: auto!important;
       height: auto!important;
       z-index: 0;
-      background-color:transparent
+      background-color:#20421F
   }
   .simplebarcontent{
       direction: inherit;
@@ -89,5 +91,8 @@
       font-size: 1.1rem;
       vertical-align: middle;
       width: 20px;
+  }
+  .simplebaroffset{
+    margin-top: 50px;
   }
   

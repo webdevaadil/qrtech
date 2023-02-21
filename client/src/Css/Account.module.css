@@ -15,15 +15,40 @@
     top: 70px;
     position: relative;
   }
+  .viewlisttop{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
   .pagetitle{
+    width: auto !important;
     font-size: 18px;
     margin: 0;
-    line-height: 75px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: inherit;
+    color: black;
+    font-family: Inter;
+    font-size: 35px;
+    font-weight: 600;
+    line-height: 42px;
+    letter-spacing: 0em;
   }
+  .breadpagetitle{
+    width: auto !important;
+    font-size: 18px;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: black;
+    font-family: Inter;
+    font-size: 35px;
+    font-weight: 600;
+    line-height: 42px;
+    letter-spacing: 0em;
+}
   .pagetitleright{
         float: right;
         margin-top: 20px;

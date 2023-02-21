@@ -4,7 +4,7 @@
 .header{
 display: flex;
 background: rgb(15,63,20);
-background: linear-gradient(276deg, rgba(15,63,20,1) 38%, rgba(60,143,79,1) 70%);
+background-color: #20421F;
 padding: 30px 0px;
 justify-content: space-evenly;
 height: 65vh;
@@ -18,7 +18,7 @@ height: 65vh;
 }
 .baneerleft h2{
     font-weight: 500;
-    color: #111111;
+    color: #fff;
     font-family: 'Open sans', sans-serif;
     line-height: 40px;
     font-size: 40px;

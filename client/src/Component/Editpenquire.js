@@ -174,7 +174,7 @@ export const Editpenquire = () => {
                 <div class="card-body">
                   <div class="row mb-3">
                     <div class="col-md-4">
-                      <h4 class="mt-2">Edit Enquiry</h4>
+                      <h4 class={` mt-2 ${styles.title} `}>Edit Enquiry</h4>
                     </div>
                     <div class={`col-md-8 ${styles.textright}`}>
                       <Link to={`/main/viewlist`} class="btn btn-outline-dark">

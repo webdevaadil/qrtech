@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "../Css/Dashboard.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const Dashboard = () => {
   const [data, setData] = useState();
-
+  const nav=useNavigate()
   const getformdata = () => {
     axios("/api/auth/getalldata").then((res) => {
       console.log(res);
@@ -19,7 +20,7 @@ export const Dashboard = () => {
        
       <div class="row" style={{ justifyContent: "flex-end" }}>
       <div class={`page-title-box   ${styles.dashboardtopbox}`}>
-          <div class="">
+          <div>
             <ol class="breadcrumb m-0">
               <li class="breadcrumb-item">
                 <a>Home</a>

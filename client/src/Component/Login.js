@@ -24,7 +24,7 @@ useEffect(() => {
 
     e.preventDefault();
     console.log(first);
-   await axios.post(`${baseurl}/api/auth/login`, {
+   await axios.post(`/api/auth/login`, {
       email: first.email,
       password: first.password,
     }).then((res)=>{

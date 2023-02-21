@@ -4,7 +4,7 @@
     float: right;
     top: 70px;
     position: relative;
-    box-shadow: 0 0 35px 0 rgb(154 161 171 / 15%);
+    /* box-shadow: 0 0 35px 0 rgb(154 161 171 / 60%); */
     background-color: white;
 }
 .seachfeilds{
@@ -17,14 +17,13 @@
     color: #6c757d;
 }
 .theaddark tr th {
-    background-color: #2e4256;
-    border-color: #2e4256;
+    background-color: #20421F;
+    border-color: #20421F;
     color: #f1f1f1;
 }
 
 .viewlisttop{
         display: flex;
-        flex-direction: row-reverse;
         justify-content: space-between;
         margin-top: 30px;
         margin-bottom: 30px;
@@ -36,5 +35,10 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: inherit;
+    color: black;
+    font-family: Inter;
+    font-size: 35px;
+    font-weight: 600;
+    line-height: 42px;
+    letter-spacing: 0em;
 }
