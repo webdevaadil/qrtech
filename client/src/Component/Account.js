@@ -97,10 +97,20 @@ export const Account = () => {
                         <h4 class="mt-2">My Account</h4>
                       </div>
                       <div class={`col-md-8 ${styles.textright}`}>
-                        <a class="btn btn-dark btn-sm">Back </a>
-                          <i class="mdi mdi-content-save btn btn-warning btn-sm">
-                          <input class="btn btn-warning btn-sm"value="Update" type="submit" />
-                            </i>{" "}
+                      <button class={`btn btn-dark btn-sm ${styles.backbutton}` } >Back </button>
+                        <button
+                        type="submit"
+                        class="btn btn-warning btn-sm"
+                        form="passwordForm"
+                      >
+                        <i class="mdi mdi-key">
+                          <input
+                            class="btn btn-warning btn-sm"
+                            value="Update"
+                            type="submit"
+                          />
+                        </i>
+                      </button>
                       </div>
                     </div>
                   </div>
@@ -205,9 +215,19 @@ export const Account = () => {
                           class="btn btn-warning btn-sm"
                           form="accountForm"
                         >
-                          <i class="mdi mdi-content-save btn btn-warning btn-sm">
-                          <input class="btn btn-warning btn-sm"value="Update" type="submit" />
-                            </i>
+                            <button
+                        type="submit"
+                        class="btn btn-warning btn-sm"
+                        form="passwordForm"
+                      >
+                        <i class="mdi mdi-key">
+                          <input
+                            class="btn btn-warning btn-sm"
+                            value="Update"
+                            type="submit"
+                          />
+                        </i>
+                      </button>
                         </button>
                       </div>
                     </div>

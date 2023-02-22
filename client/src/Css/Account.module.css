@@ -15,6 +15,9 @@
     top: 70px;
     position: relative;
   }
+  .backbutton{
+    height: 40px;
+  }
   .viewlisttop{
     display: flex;
     justify-content: space-between;

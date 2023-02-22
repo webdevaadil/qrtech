@@ -58,10 +58,12 @@ useEffect(() => {
     <>
       <Header />
       <div className={styles.registersection}>
-        <div className="container">
-          <h1>Login</h1>
+        <div className="container" style={{display:"flex",justifyContent:"center"}}>
+          <div className={styles.loginbody}>
+
           <form onSubmit={handle}>
             <div className={styles.loginhead}>
+          <h1>Login</h1>
               <div className={styles.loginright}>
                 <div className="form-group">
                   <input
@@ -108,7 +110,7 @@ useEffect(() => {
                     <a onClick={forgetpassword} >Forget password ?</a>
                   </p>
                 </div>
-                <div className={styles.logincontent}>
+                {/* <div className={styles.logincontent}>
                   <h3>
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
@@ -116,13 +118,15 @@ useEffect(() => {
                     printer took button galley of type and scrambled it to make button
                     type specimen book.
                   </h3>
-                </div>
+                </div> */}
               </div>
-              <div className={styles.loginright}>
+              {/* <div className={styles.loginright}>
                 <img src={Img} alt="Login" />
-              </div>
+              </div> */}
             </div>
           </form>
+          </div>
+
         </div>
       </div>
       <Footer />
