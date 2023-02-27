@@ -5,7 +5,7 @@ import Img from "../Img/login.png";
 import { Footer } from "./Footer";
 import axios from "axios";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 function Login() {
   const navigate = useNavigate();
   const [first, setfirst] = useState({ email: "", password: "" });
@@ -31,28 +31,27 @@ useEffect(() => {
       console.log(res.data.token);
       localStorage.setItem("token",JSON.stringify(res.data.token))
          navigate("/main");
+     toast.success(`Welcome ${res.data.user.firstname}`);
+
 
     }).catch((e)=>{
-     alert(e.response.data);
+     toast.error(e.response.data);
     })
-    // try {
-    // } catch (error) {
-    //   alert();
-    // }
-
-    // if (data.data.success===true) {
-    //   navigate("/home")
-
-    // }
-    // if(data.response.status !== 200){
-
-    // }
-    // .then(navigate("/home"))
+   
   };
   const forgetpassword=()=>{
     axios.post("/api/auth/forgetpassword").then(()=>{
       toast.info("Reset password link sent to register mail")
     })
+  }
+
+  function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
   }
   return (
     <>
@@ -70,6 +69,7 @@ useEffect(() => {
                     className="form-control"
                     type="text"
                     id="email"
+                    required
                     name="email"
                     placeholder="Email Address"
                     value={first.email}
@@ -80,17 +80,32 @@ useEffect(() => {
                 </div>
 
                 <div className="form-group">
+                <label
+                          htmlFor="current_passwordi"
+                          style={{ display: "flex", width: "inherit" }}
+                        >
+
                   <input
                     className="form-control"
                     type="password"
-                    id="password"
+                    id="floatingPassword"
+                    required
                     name="password"
                     placeholder="Password"
                     value={first.password}
                     onChange={(e) => {
                       setfirst({ ...first, [e.target.name]: e.target.value });
                     }}
-                  />
+                    />
+                      <i
+                            id="floatingPassword"
+                            className="mdi mdi-eye"
+                            style={{ margin: "6px -31px" }}
+                            onClick={(e)=>{
+                              myFunction("floatingPassword")
+                            }}
+                          ></i>
+                    </label>
                 </div>
 
                 <div className={styles.accbutton}>
@@ -107,7 +122,7 @@ useEffect(() => {
                       <a >Register Here</a>
                     </strong>
                     <br />
-                    <a onClick={forgetpassword} >Forget password ?</a>
+                    <a style={{cursor:"pointer"}} onClick={forgetpassword} >Forget password ?</a>
                   </p>
                 </div>
                 {/* <div className={styles.logincontent}>

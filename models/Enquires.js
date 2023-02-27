@@ -26,7 +26,7 @@ const enquireschema = new mongoose.Schema({
     // required: true,
   },
   Rating: {
-    type: Number,
+    type: String,
     // required: true,
   },
   DispatchDate: {

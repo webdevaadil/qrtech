@@ -7,12 +7,13 @@
     background-clip: border-box;
     border-radius: 0.25rem;
     border: none;
-    box-shadow: 0 0 35px 0 rgb(154 161 171 / 15%);
+    box-shadow: rgb(154 161 171 / 60%) 0px 0px 35px ;
+
     margin-bottom: 24px;
     padding: 1.5rem;
     width: 80%;
     float: right;
-    top: 70px;
+    top: 110px;
     position: relative;
   }
 

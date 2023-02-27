@@ -7,7 +7,8 @@
   background-clip: border-box;
   border-radius: 0.25rem;
   border: none;
-  box-shadow: 0 0 35px 0 rgb(154 161 171 / 15%);
+  box-shadow: rgb(154 161 171 / 60%) 0px 0px 35px ;
+
   margin-bottom: 24px;
   padding: 1.5rem;
   width: 80%;
@@ -27,4 +28,17 @@
   justify-content: center;
   align-items: center;
 }
-
+.toptext{
+  width: auto !important;
+  font-size: 18px;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: black;
+  font-family: Inter;
+  font-size: 35px;
+  font-weight: 600;
+  line-height: 42px;
+  letter-spacing: 0em;
+}

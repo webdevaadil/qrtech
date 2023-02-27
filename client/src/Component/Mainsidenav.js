@@ -33,7 +33,7 @@ nav("/")
 
                         <li class="side-nav-item">
                           <Link to="/main/viewlist" class="side-nav-link">
-                            <i class="mdi mdi-bell"></i>
+                            <i class="mdi mdi-view-list"></i>
                             <span> View List</span>
                           </Link>
                         </li>
@@ -57,7 +57,7 @@ nav("/")
                           <a  onClick={logout}
                             class="side-nav-link"
                           >
-                            <i class="mdi mdi-lock-outline"></i>
+                            <i class="mdi mdi-logout"></i>
                             Logout
                           </a>
                         </li>

@@ -9,7 +9,7 @@
   display: block;
   line-height: 70px;
   z-index: 2;
-  width: 260px;
+  background-color: #fff;
 }
 
 .headerfirst {

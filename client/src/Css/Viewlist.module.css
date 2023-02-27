@@ -4,12 +4,12 @@
     float: right;
     top: 70px;
     position: relative;
-    /* box-shadow: 0 0 35px 0 rgb(154 161 171 / 60%); */
+    box-shadow:0 0 35px 0 rgb(154 161 171 / 15%);
     background-color: white;
 }
 .seachfeilds{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 .table{
     width: 100%;

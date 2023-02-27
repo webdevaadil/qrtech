@@ -40,3 +40,31 @@
     color: #B12C23;
  
 }
+
+
+@media screen and (max-width: 850px) {
+    .blog li   {
+      width:40%;
+      margin: 10px 0;
+    }
+    .blog ul   {
+        display: flex;
+        justify-content: space-around;
+        /* flex-direction: row; */
+        flex-wrap: wrap;
+        align-content: space-between;
+    
+    }
+  }
+
+@media screen and (max-width: 500px) {
+    .blog li   {
+      width:60%;
+      margin: 10px 0;
+    }
+    .blog ul   {
+        align-content: center;
+        flex-direction: column;
+       
+    }
+  }

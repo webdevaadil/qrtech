@@ -33,6 +33,11 @@ height: 65vh;
 .baneerright{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: center;
 }
+@media screen and (max-width: 537px) {
+    .baneerright img   {
+      width:70%;
+    }
+  }

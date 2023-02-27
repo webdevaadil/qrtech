@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import QRCode from "react-qr-code";
 import html2canvas from "html2canvas";
+import { Loader } from "./Loader";
 export const Prosnalpage = () => {
   console.log(document.location.origin);
 
@@ -55,14 +56,15 @@ export const Prosnalpage = () => {
   };
 
   return (
-    <>
+ <>
+ {!data ?(<Loader/>):(   <>
       <div class={`${styles.prosnaltop} row`}>
         <div class="col-lg-12">
-          <div class="card border-info border">
+          <div class="card ">
             <div class="card-header">
               <div class="row">
                 <div class="col-md-4">
-                  <h4 class="mt-2">Enquiries</h4>
+                  <h4 class="mt-2" className={styles.toptext}>Enquiries</h4>
                 </div>
                 <div class="col-md-8" style={{ textAlign: "end" }}>
                   {data && (
@@ -125,7 +127,7 @@ export const Prosnalpage = () => {
                                 >
                                   <i class="mdi mdi-download"></i>{" "}
                                 </button>
-                                <button
+                                {/* <button
                                   type="button"
                                   onClick={() => {
                                     deletefile(item.path);
@@ -134,7 +136,7 @@ export const Prosnalpage = () => {
                                   onclick="confirmDelete(39)"
                                 >
                                   <i class="mdi mdi-window-close"></i>{" "}
-                                </button>
+                                </button> */}
                               </div>
                             </li>
                           );
@@ -169,6 +171,6 @@ export const Prosnalpage = () => {
           </div>
         </div>
       </div>
-    </>
+    </>)}</>
   );
 };

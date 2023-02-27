@@ -3,7 +3,8 @@ import styles from "../Css/Account.module.css";
 import img from "../Img/accountimg.png";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Loader } from "./Loader";
 
 export const Account = () => {
   const [user, setuser] = useState();
@@ -55,6 +56,7 @@ export const Account = () => {
   };
   return (
     <>
+    
       {user ? (
         <div className={`${styles.accounttop}`}>
           {/* <div class="row">
@@ -97,8 +99,12 @@ export const Account = () => {
                         <h4 class="mt-2">My Account</h4>
                       </div>
                       <div class={`col-md-8 ${styles.textright}`}>
-                      <button class={`btn btn-dark btn-sm ${styles.backbutton}` } >Back </button>
-                        <button
+                      <Link
+                            to={`/main/viewlist`}
+                            class="btn btn-outline-dark"
+                          >
+                            Back{" "}
+                          </Link>                        <button
                         type="submit"
                         class="btn btn-warning btn-sm"
                         form="passwordForm"
@@ -238,7 +244,7 @@ export const Account = () => {
           </div>
         </div>
       ) : (
-        ""
+        <Loader/>
       )}
     </>
   );

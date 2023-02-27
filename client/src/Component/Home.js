@@ -33,11 +33,11 @@ export const Home = () => {
             </h2>
             <button className="btn btn " style={{backgroundColor:"#B12C23",borderRadius:"32px"}}>
               <Link style={{textDecoration:"none" ,color:"white"}}to='/register'>
-              sign up For Free</Link>
+              Sign Up For Free</Link>
             </button>
           </div>
           <div className={styles.baneerright}>
-            <img src={homeinmg} alt="" />
+            <img width={'100%'} src={homeinmg} alt="" />
           </div>
         </div>
 
