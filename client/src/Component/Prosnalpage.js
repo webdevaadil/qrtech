@@ -81,7 +81,7 @@ export const Prosnalpage = () => {
                 </div>
               </div>
             </div>
-            <div class="card-body">
+            <div class="card-body" style={{overflow:"scroll"}}>
               <table class="table table-bordered table-centered mb-0">
                 {data && (
                   <tbody>

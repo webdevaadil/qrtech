@@ -183,7 +183,7 @@ setProname("")
                 </div>
               </div>
               <div class="form-group">
-                <button onClick={resetform} class="btn btn-outline-danger ml-1">
+                <button onClick={resetform} class="btn btn-outline-danger ml-1 d-flex">
                   <i class="mdi mdi-autorenew"></i> Reset
                 </button>
               </div>
