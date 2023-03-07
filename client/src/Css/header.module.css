@@ -6,10 +6,11 @@
   align-items: center;
 }
 .logo {
-  display: block;
+  display: flex;
   line-height: 70px;
   z-index: 2;
   background-color: #fff;
+  justify-content: center;
 }
 
 .headerfirst {

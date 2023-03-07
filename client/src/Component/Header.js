@@ -10,7 +10,7 @@ export const Header = () => {
 <div className={styles.headerfirst}>
 <span class={`${styles.logo} text-center logo-light`}>
             <span class="logo-lg">
-              <img src={mainnavlogo} alt="Logo" style={{width:'90px'  }}/>
+              <img src={mainnavlogo} alt="Logo" style={{width:'90px'}}/>
             </span>
           </span>
 {/* <img src={img} alt="" srcset="" /> */}
