@@ -161,7 +161,8 @@ export const Editpenquire = () => {
     axios.post("/api/auth/deletefile", { e, id }).then((response) => {
       console.log(response);
       getdata();
-    });
+      toast.info("deleted")
+    })
   };
   return (
     <>
