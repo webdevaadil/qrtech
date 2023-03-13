@@ -117,12 +117,12 @@ useEffect(() => {
                   />
 
                   <p>
-                    Don't have an account ?{" "}
+                    <a style={{cursor:"pointer"}} onClick={forgetpassword} >Forget password ?</a>
+                    {/* Don't have an account ?{" "}
                     <strong>
                       <a >Register Here</a>
-                    </strong>
+                    </strong> */}
                     <br />
-                    <a style={{cursor:"pointer"}} onClick={forgetpassword} >Forget password ?</a>
                   </p>
                 </div>
                 {/* <div className={styles.logincontent}>
@@ -144,7 +144,7 @@ useEffect(() => {
 
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

@@ -34,7 +34,12 @@ build/Release
 
 # Dependency directories
 node_modules/
+uploads/
 jspm_packages/
+
+uploads/
+
+/uploads
 
 # TypeScript v1 declaration files
 typings/
@@ -74,5 +79,6 @@ typings/
 
 # FuseBox cache
 .fusebox/
-/uploads
-uploads/
+
+
+

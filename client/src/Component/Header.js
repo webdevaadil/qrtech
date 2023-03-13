@@ -17,7 +17,7 @@ export const Header = () => {
 {/* <a class="navbar-brand" >LOGO</a> */}
 <nav className={styles.nav}>
   <Link to="/login"className={`${styles.navitem} btn btn-default ${styles.navitemlogin}`}>Login</Link>
-  <Link to="/register"className={`${styles.navitem} btn  ${styles.navitemgetstart}`}>Get Started</Link>
+  <Link to="/login"className={`${styles.navitem} btn  ${styles.navitemgetstart}`}>Get Started</Link>
 </nav>
 </div>
 

@@ -8,6 +8,8 @@ const enquiry = require("../models/Enquires.js");
 const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail.js");
 const nodemailer = require("nodemailer");
+const fs = require("fs");
+
 
 async function isEmailValid(email) {
   return emailValidator.validate(email);
@@ -170,27 +172,39 @@ exports.updateprofile = catchAsyncerror(async (req, res, next) => {
 exports.edit = catchAsyncerror(async (req, res) => {
   let uid = req.body.id;
   let data = await Enquires.findById({ _id: uid });
-  // console.log(data);
   return res.json(data);
 });
 exports.editprofile = catchAsyncerror(async (req, res) => {
   let uid = req.body.id;
   let data = await Users.findById({ _id: uid });
-  // console.log(data);
   return res.json(data);
 });
 exports.deletedata = catchAsyncerror(async (req, res) => {
-  let uid = req.body.id;
-  // console.log(req);
-  let data = await Enquires.findByIdAndDelete({ _id: uid });
-  // console.log(data);
+  let _id = req.body.id;
+  
+  const Users= await enquiry.findById(_id);
+   Users.files.map((item,index)=>{
+    try {
+      fs.unlink(item.path, (err) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+  
+        //file removed
+      });
+     
+    } catch (error) {
+      res.status(500).json(error);
+    }
+    
+  })
+  let data = await Enquires.findByIdAndDelete( _id);
   return res.json(data);
 });
 exports.deletefile = catchAsyncerror(async (req, res) => {
   let uid = req.body.id;
   let path = req.body.e;
-  console.log(req.body);
-  const fs = require("fs");
 
   try {
     fs.unlink(path, (err) => {
@@ -212,7 +226,6 @@ exports.deletefile = catchAsyncerror(async (req, res) => {
 });
 
 exports.adddata = catchAsyncerror(async (req, res, next) => {
-  console.log(req.files);
 
   const obj = JSON.parse(JSON.stringify(req.body));
   const {
@@ -225,7 +238,6 @@ exports.adddata = catchAsyncerror(async (req, res, next) => {
     DispatchDate,
   } = obj;
 
-  console.log(obj);
   // Create a new instance of the FormData model
   try {
     await enquiry.create({
@@ -283,7 +295,6 @@ exports.dashboard = catchAsyncerror(async (req, res, next) => {
 });
 exports.updatePassword = catchAsyncerror(async (req, res, next) => {
   const user = await Users.findById(req.body.user._id).select("+password");
-  // console.log(req.body);
   const isPasswordMatched = await user.matchPassword(req.body.data.password);
   if (!isPasswordMatched) {
     return res.status(400).json("Old password is incorrect");
@@ -308,10 +319,8 @@ exports.forgetpassword = catchAsyncerror(async (req, res, next) => {
   if (!user) {
     return res.status(400).json({ message: "user not found" });
   }
-  console.log("asd");
   //get resset password token
   const resetToken = user.getResetPasswordToken();
-  console.log(req);
 
   const resetPasswordUrl = `http://localhost:3000/password/reset/${resetToken}`;
   console.log(resetPasswordUrl);

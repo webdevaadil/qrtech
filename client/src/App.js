@@ -22,7 +22,7 @@ import { useEffect, useState } from "react";
 import { Changepassword } from "./Component/Changepassword.js";
 import { Forgetpassword } from "./Component/Forgetpassword.js";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const [user, setuser] = useState();
   const getacc = async () => {
@@ -50,7 +50,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            {/* <Route path="/register" element={<Register />} /> */}
             <Route
               path="/main"
               element={
@@ -80,17 +80,17 @@ function App() {
           </Routes>
         </BrowserRouter>
         <ToastContainer
-      position="top-center"
-      autoClose={5000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      theme="light"
-    />
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </div>
     </>
   );

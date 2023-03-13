@@ -3,7 +3,7 @@ import styles from "../Css/footer.module.css";
 
 export const Footer = () => {
   return <>
-   <footer className={styles.blog}>
+   {/* <footer className={styles.blog}>
     <ul>
      
       <li> <h2>Organize</h2>Keep your Enquiries organized with dedicated filters at your finger tips.</li>
@@ -11,7 +11,7 @@ export const Footer = () => {
       <li> <h2>100% Free</h2>Totally FREE to use for Individuals, No charge of any sort.</li>
       <li> <h2>Secure</h2>Filed stored hereare safe and secure</li>
     </ul>
-  </footer>
+  </footer> */}
 <div class={styles.footersection}>
     <div class={styles.container}>
         <ul class={styles.listinlineul}>

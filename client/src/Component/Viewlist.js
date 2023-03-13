@@ -17,7 +17,7 @@ export const Viewlist = () => {
 
   //
   const [user, setuser] = useState();
-  const nav=useNavigate()
+  const nav = useNavigate();
 
   const getacc = async () => {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -29,8 +29,7 @@ export const Viewlist = () => {
       .catch((error) => {
         console.log(error);
         localStorage.removeItem("token");
- nav('/')
-
+        nav("/");
       });
   };
   const getformdata = () => {
@@ -44,6 +43,7 @@ export const Viewlist = () => {
     getacc();
   }, []);
   const getdeletedata = (id) => {
+    console.log(id);
     axios.post("/api/auth/delete", { id: id }).then((res) => {
       console.log(res);
       setData(res.data);
@@ -60,7 +60,27 @@ export const Viewlist = () => {
   const downloadExcel = async (data) => {
     const res = await axios("/api/auth/downloadexcel");
 
-    const ws = XLSX.utils.json_to_sheet(res.data);
+ 
+    
+    const filedata=res.data.map((m) => {
+      const filesfil= m.files.map((item,index)=>{
+        console.log(item.originalname);
+        return item.originalname
+      })
+      console.log(filesfil);
+
+   return {
+        customer: m.customer,
+        Product_type: m.Product_type,
+        Product_Name: m.Product_Name,
+        Constructiontype: m.Constructiontype,
+        Rating: m.Rating,
+        DispatchDate: m.DispatchDate,
+        files: filesfil.join(" , ")
+      };
+    });
+    console.log(filedata);
+    const ws = XLSX.utils.json_to_sheet(filedata);
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
     console.log(excelBuffer);
@@ -73,20 +93,19 @@ export const Viewlist = () => {
   const [recordsPerPage] = useState(20);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  let currentRecords
-  if(data.length>0){
+  let currentRecords;
+  if (data.length > 0) {
     currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
-
   }
 
   const nPages = Math.ceil(data.length / recordsPerPage);
   // console.log(currentRecords);
-const resetform=(e)=>{
-e.preventDefault();
-setCoustmersearch("")
-setJobno("")
-setProname("")
-}
+  const resetform = (e) => {
+    e.preventDefault();
+    setCoustmersearch("");
+    setJobno("");
+    setProname("");
+  };
   return (
     <>
       {!data ? (
@@ -136,7 +155,7 @@ setProname("")
                 <i class="mdi mdi-download"></i> Download
               </a>
             </div>
-            <form class={`${styles.seachfeilds} form-inline mb-2`} >
+            <form class={`${styles.seachfeilds} form-inline mb-2`}>
               <div class="form-group mr-1">
                 <div class="input-group">
                   <input
@@ -183,7 +202,10 @@ setProname("")
                 </div>
               </div>
               <div class="form-group">
-                <button onClick={resetform} class="btn btn-outline-danger ml-1 d-flex">
+                <button
+                  onClick={resetform}
+                  class="btn btn-outline-danger ml-1 d-flex"
+                >
                   <i class="mdi mdi-autorenew"></i> Reset
                 </button>
               </div>
@@ -265,14 +287,15 @@ setProname("")
               </table>
             </div>
             <div class="col-sm-12"></div>
-            {data.length>0?(
+            {data.length > 0 ? (
               <Pagination
-              nPages={nPages}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
+                nPages={nPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
               />
-              ):("")
-              }
+            ) : (
+              ""
+            )}
           </div>
         </div>
       )}

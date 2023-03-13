@@ -39,7 +39,7 @@ router.route("/forgetpassword").post(forgetpassword);
 router.route("/password/reset/:token").put(resetPassword)
 
 router.route("/downloadexcel").get(async(req,res)=>{
-  const data = await enquiry.find({},{__v: 0,_id:0,files:0} );
+  const data = await enquiry.find({},{__v: 0,_id:0,} );
   res.status(200).json(data);
 });
 // app.post('/api/formdata',);
