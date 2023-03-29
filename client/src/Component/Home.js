@@ -31,10 +31,10 @@ export const Home = () => {
               <br />
               <p style={{  }}>Access to all your files</p>
             </h2>
-            <button className="btn btn " style={{backgroundColor:"#B12C23",borderRadius:"32px"}}>
+            {/* <button className="btn btn " style={{backgroundColor:"#B12C23",borderRadius:"32px"}}>
               <Link style={{textDecoration:"none" ,color:"white"}}to='/register'>
               Sign Up For Free</Link>
-            </button>
+            </button> */}
           </div>
           <div className={styles.baneerright}>
             <img width={'100%'} src={homeinmg} alt="" />

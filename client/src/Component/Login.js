@@ -117,7 +117,7 @@ useEffect(() => {
                   />
 
                   <p>
-                    <a style={{cursor:"pointer"}} onClick={forgetpassword} >Forget password ?</a>
+                    <a style={{cursor:"pointer"}} onClick={forgetpassword} >Forgot password ?</a>
                     {/* Don't have an account ?{" "}
                     <strong>
                       <a >Register Here</a>
