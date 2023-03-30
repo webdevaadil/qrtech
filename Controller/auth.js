@@ -10,15 +10,14 @@ const sendEmail = require("../utils/sendEmail.js");
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 
-
 async function isEmailValid(email) {
   return emailValidator.validate(email);
 }
 exports.register = catchAsyncerror(async (req, res, next) => {
   console.log(req.body);
-  const { email, password, name } = req.body;
+  const { firstname, lastname, email, telephone ,password} = req.body;
 
-  if (!email || !password) {
+  if (!firstname || !lastname || !email || !password || !telephone) {
     return res.status(400).json("plese fill all input ");
   }
   if (password.length < 8) {
@@ -35,7 +34,9 @@ exports.register = catchAsyncerror(async (req, res, next) => {
         const userData = await Users.create({
           email,
           password,
-          name,
+          firstname,
+          lastname,
+          telephone
         });
         console.log(userData);
         sendToken(userData, 201, res);
@@ -181,25 +182,23 @@ exports.editprofile = catchAsyncerror(async (req, res) => {
 });
 exports.deletedata = catchAsyncerror(async (req, res) => {
   let _id = req.body.id;
-  
-  const Users= await enquiry.findById(_id);
-   Users.files.map((item,index)=>{
+
+  const Users = await enquiry.findById(_id);
+  Users.files.map((item, index) => {
     try {
       fs.unlink(item.path, (err) => {
         if (err) {
           console.error(err);
           return;
         }
-  
+
         //file removed
       });
-     
     } catch (error) {
       res.status(500).json(error);
     }
-    
-  })
-  let data = await Enquires.findByIdAndDelete( _id);
+  });
+  let data = await Enquires.findByIdAndDelete(_id);
   return res.json(data);
 });
 exports.deletefile = catchAsyncerror(async (req, res) => {
@@ -226,7 +225,6 @@ exports.deletefile = catchAsyncerror(async (req, res) => {
 });
 
 exports.adddata = catchAsyncerror(async (req, res, next) => {
-
   const obj = JSON.parse(JSON.stringify(req.body));
   const {
     customer,
@@ -298,13 +296,9 @@ exports.updatePassword = catchAsyncerror(async (req, res, next) => {
   const isPasswordMatched = await user.matchPassword(req.body.data.password);
   if (!isPasswordMatched) {
     return res.status(400).json("Old password is incorrect");
-  }
-  
-  
-  else if (req.body.newPassword !== req.body.confirmPassword) {
+  } else if (req.body.newPassword !== req.body.confirmPassword) {
     return res.status(400).json("password does not match");
-  }
-  else  if (req.body.data.confirmPassword.length < 8) {
+  } else if (req.body.data.confirmPassword.length < 8) {
     return res.status(400).json("password must be 8 character long");
   }
 
