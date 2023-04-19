@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.3a40a24b.css",
-    "main.js": "/static/js/main.8f79c1bb.js",
+    "main.css": "/static/css/main.c37e6293.css",
+    "main.js": "/static/js/main.0cb38569.js",
     "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
     "static/media/Trisquare Logo_page-0001.png": "/static/media/Trisquare Logo_page-0001.7b443411ab420d93ea14.png",
     "static/media/avatar.jpg": "/static/media/avatar.54b3a7694758cf934e41.jpg",
@@ -10,12 +10,12 @@
     "static/media/login.png": "/static/media/login.5c15cab83fe285d216ff.png",
     "static/media/Headerlogo.jpg": "/static/media/Headerlogo.270906eb17575ffd9ccc.jpg",
     "index.html": "/index.html",
-    "main.3a40a24b.css.map": "/static/css/main.3a40a24b.css.map",
-    "main.8f79c1bb.js.map": "/static/js/main.8f79c1bb.js.map",
+    "main.c37e6293.css.map": "/static/css/main.c37e6293.css.map",
+    "main.0cb38569.js.map": "/static/js/main.0cb38569.js.map",
     "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3a40a24b.css",
-    "static/js/main.8f79c1bb.js"
+    "static/css/main.c37e6293.css",
+    "static/js/main.0cb38569.js"
   ]
 }
