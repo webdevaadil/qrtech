@@ -64,7 +64,7 @@ export const Viewlist = () => {
     
     const filedata=res.data.map((m) => {
       const filesfil= m.files.map((item,index)=>{
-        console.log(item.originalname);
+        console.log(item);
         return item.originalname
       })
       console.log(filesfil);
@@ -75,6 +75,7 @@ export const Viewlist = () => {
         Product_Name: m.Product_Name,
         Constructiontype: m.Constructiontype,
         Rating: m.Rating,
+        'Job no': m.SONo_JobNo,
         DispatchDate: m.DispatchDate,
         files: filesfil.join(" , ")
       };

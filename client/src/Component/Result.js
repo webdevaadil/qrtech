@@ -34,8 +34,8 @@ export const Result = () => {
       document.body.appendChild(link);
       link.click();
     });
-    console.log(datasss);
   };
+  console.log(data);
   return (
     <>
       {!data ? (
@@ -101,8 +101,8 @@ export const Result = () => {
                       </tr>
                       <tr>
                         <th>Customer</th>
-                        <th>Test</th>
-                      </tr>
+                        <th>{data.customer}</th>
+                        </tr>
                     </tbody>
                   )}
                 </table>
