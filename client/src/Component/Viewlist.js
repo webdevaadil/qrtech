@@ -313,7 +313,7 @@ export const Viewlist = () => {
                             </tr>
                           );
                         })
-                      : currentRecords.map((item, index) => {
+                      : currentRecords.reverse().map((item, index) => {
                           // console.log(item);
                           return (
                             <tr>
