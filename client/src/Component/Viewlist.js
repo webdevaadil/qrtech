@@ -11,6 +11,7 @@ import { Loader } from "./Loader";
 export const Viewlist = () => {
   const [data, setData] = useState([]);
   //
+  const [newfilter, setNewfilter] = useState();
   const [coustmersearch, setCoustmersearch] = useState("");
   const [jobno, setJobno] = useState("");
   const [proname, setProname] = useState("");
@@ -51,6 +52,7 @@ export const Viewlist = () => {
       toast.info("Delete Successfully");
     });
   };
+  const [filon, setFilon] = useState(false);
   useEffect(() => {
     getformdata();
   }, []);
@@ -60,24 +62,22 @@ export const Viewlist = () => {
   const downloadExcel = async (data) => {
     const res = await axios("/api/auth/downloadexcel");
 
- 
-    
-    const filedata=res.data.map((m) => {
-      const filesfil= m.files.map((item,index)=>{
+    const filedata = res.data.map((m) => {
+      const filesfil = m.files.map((item, index) => {
         console.log(item);
-        return item.originalname
-      })
+        return item.originalname;
+      });
       console.log(filesfil);
 
-   return {
+      return {
         customer: m.customer,
         Product_type: m.Product_type,
         Product_Name: m.Product_Name,
         Constructiontype: m.Constructiontype,
         Rating: m.Rating,
-        'Job no': m.SONo_JobNo,
+        "Job no": m.SONo_JobNo,
         DispatchDate: m.DispatchDate,
-        files: filesfil.join(" , ")
+        files: filesfil.join(" , "),
       };
     });
     console.log(filedata);
@@ -98,7 +98,7 @@ export const Viewlist = () => {
   if (data.length > 0) {
     currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
   }
-
+  console.log(newfilter);
   const nPages = Math.ceil(data.length / recordsPerPage);
   // console.log(currentRecords);
   const resetform = (e) => {
@@ -107,6 +107,57 @@ export const Viewlist = () => {
     setJobno("");
     setProname("");
   };
+  const cussearch = (e) => {
+    setCoustmersearch(e.target.value);
+    console.log(e.target.value);
+    const net = data.filter((value) => {
+      return `${value.customer} `
+        .toLowerCase()
+        .match(e.target.value.toLowerCase());
+    });
+    if (e.target.value === "") {
+      console.log(net);
+      setNewfilter(data.slice(indexOfFirstRecord, indexOfLastRecord));
+      setFilon(false);
+    } else {
+      setFilon(true);
+      console.log(net);
+      setNewfilter(net);
+    }
+  };
+  const jobsearch = (e) => {
+    console.log(e.target.value);
+
+    setJobno(e.target.value);
+    const net = data.filter((value) => {
+      return ` ${value.SONo_JobNo} `.toLowerCase().match(e.target.value.toLowerCase());
+    });
+    if (e.target.value === "") {
+      console.log(net);
+      setNewfilter(data.slice(indexOfFirstRecord, indexOfLastRecord));
+      setFilon(false);
+    } else {
+      setFilon(true);
+      console.log(net);
+      setNewfilter(net);
+    }
+  };
+  const prosearch = (e) => {
+    setProname(e.target.value);
+    const net = data.filter((value) => {
+      return `${value.Product_Name}`.toLowerCase().match(e.target.value.toLowerCase());
+    });
+    if (e.target.value === "") {
+      console.log(net);
+      setNewfilter(data.slice(indexOfFirstRecord, indexOfLastRecord));
+      setFilon(false);
+    } else {
+      setFilon(true);
+      console.log(net);
+      setNewfilter(net);
+    }
+  };
+  console.log(newfilter);
   return (
     <>
       {!data ? (
@@ -166,9 +217,7 @@ export const Viewlist = () => {
                     id="filter_name"
                     name="customer"
                     value={coustmersearch}
-                    onChange={(e) => {
-                      setCoustmersearch(e.target.value);
-                    }}
+                    onChange={cussearch}
                   />
                 </div>
               </div>
@@ -181,9 +230,7 @@ export const Viewlist = () => {
                     id="filter_job"
                     name="SONo_JobNo"
                     value={jobno}
-                    onChange={(e) => {
-                      setJobno(e.target.value);
-                    }}
+                    onChange={jobsearch}
                   />
                 </div>
               </div>
@@ -195,9 +242,7 @@ export const Viewlist = () => {
                     class="form-control"
                     id="filter_pti"
                     name="Product_Name"
-                    onChange={(e) => {
-                      setProname(e.target.value);
-                    }}
+                    onChange={prosearch}
                     value={proname}
                   />
                 </div>
@@ -229,24 +274,47 @@ export const Viewlist = () => {
                 </thead>
                 <tbody>
                   {data.length > 0
-                    ? currentRecords
-                        .filter((value) => {
-                          return `${value.customer} `
-                            .toLowerCase()
-                            .match(coustmersearch.toLowerCase());
+                    ? filon === true
+                      ? newfilter.map((item, index) => {
+                          // console.log(item);
+                          return (
+                            <tr>
+                              <td># {index + 1}</td>
+                              <td>{item.customer}</td>
+                              <td>{item.Product_type}</td>
+                              <td>{item.Product_Name}</td>
+                              <td>{item.SONo_JobNo}</td>
+                              <td>{item.Constructiontype}</td>
+                              <td class="table-action text-center">
+                                <Link
+                                  to={`/main/Prosnalpage/${item._id}`}
+                                  class="btn btn-primary"
+                                >
+                                  <i class="mdi mdi-eye-outline"></i>{" "}
+                                </Link>
+                                <Link
+                                  to={`/main/Prosnalpage/edit/${item._id}`}
+                                  class="btn btn-warning"
+                                >
+                                  <i class="mdi mdi-pencil"></i>{" "}
+                                </Link>
+                                <button
+                                  onClick={() => {
+                                    getdeletedata(item._id);
+                                  }}
+                                  type="button"
+                                  onclick="confirmDelete(23)"
+                                  class="btn btn-danger"
+                                >
+                                  <i class="mdi mdi-delete"></i>{" "}
+                                </button>
+                                <form id="delete-form23" method="POST"></form>
+                              </td>
+                            </tr>
+                          );
                         })
-                        .filter((value) => {
-                          return ` ${value.SONo_JobNo} `
-                            .toLowerCase()
-                            .match(jobno.toLowerCase());
-                        })
-                        .filter((value) => {
-                          return `${value.Product_Name}`
-                            .toLowerCase()
-                            .match(proname.toLowerCase());
-                        })
-                        .map((item, index) => {
-                          console.log(item);
+                      : currentRecords.map((item, index) => {
+                          // console.log(item);
                           return (
                             <tr>
                               <td># {index + 1}</td>
